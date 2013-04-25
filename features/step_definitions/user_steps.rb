@@ -77,9 +77,9 @@ def create_dojo_student_context
   @ted_dojo = FactoryGirl.create(:dojo_student, dojo: @north, student: @ted, start_date: 1.year.ago.to_date, end_date: nil)
   @fred_dojo = FactoryGirl.create(:dojo_student, dojo: @north, student: @fred, start_date: 2.years.ago.to_date, end_date: nil)
   @noah_dojo = FactoryGirl.create(:dojo_student, dojo: @cmu, student: @noah, end_date: nil)
-  @steve_cmu_dojo_1 = FactoryGirl.create(:dojo_student, dojo: @cmu, student: @steve, 2.years.ago.to_date, end_date: 13.months.ago.to_date)
-  @steve_north_dojo = FactoryGirl.create(:dojo_student, dojo: @north, student: @steve, 13.months.ago.to_date, end_date: 3.months.ago.to_date)
-  @steve_cmu_dojo_2 = FactoryGirl.create(:dojo_student, dojo: @cmu, student: @steve, 3.months.ago.to_date, end_date: nil)
+  @steve_cmu_dojo_1 = FactoryGirl.create(:dojo_student, dojo: @cmu, student: @steve, start_date: 2.years.ago.to_date, end_date: 13.months.ago.to_date)
+  @steve_north_dojo = FactoryGirl.create(:dojo_student, dojo: @north, student: @steve, start_date: 13.months.ago.to_date, end_date: 3.months.ago.to_date)
+  @steve_cmu_dojo_2 = FactoryGirl.create(:dojo_student, dojo: @cmu, student: @steve, start_date: 3.months.ago.to_date, end_date: nil)
   
 end
 
