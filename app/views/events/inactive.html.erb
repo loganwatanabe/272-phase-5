@@ -1,0 +1,32 @@
+<h2>Inactive Events</h2>
+
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Active</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @inactive_events.each do |event| %>
+    <tr>
+      <td><%= link_to event.name, event_path(event) %></td>
+      <td><%= activity(event.active) %></td>
+      <td><%= link_to 'Edit', edit_event_path(event), :class => 'btn btn-mini' %></td>
+      <td><%= link_to 'Destroy', event_path(event), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %></td>
+    </tr>
+  <% end %>
+</table>
+<span class="smtext">
+<%= will_paginate @inactive_events, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>
+
+
+
+<!-- Will make the page look nice if there are no inactive events-->
+<% if @inactive_events.size == 0 %>
+<h5>No inactive events</h5>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<% elsif @inactive_events.size<11 ; (11-@inactive_events.size).times do %>
+  <br>
+<% end; end %>

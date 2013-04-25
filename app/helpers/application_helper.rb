@@ -65,5 +65,72 @@ module ApplicationHelper
       "#{rank_name section.min_rank} - #{rank_name section.max_rank}"
     end
   end
+
+    def registered?(student, section)  #checks to see is a student is already registered for a given section
+      student_sections=Registration.for_student(student).map{|i| i.section}
+      student_sections.include?(section)
+  end
   
+    def activity(variable)
+    if variable
+      return "Yes"
+    else
+      return "No"
+    end
+  end
+
+  def waiver_name(waiver_signed)  #the same as the method above, but named differently to avoid confusion
+    if waiver_signed
+      return "Yes"
+    else
+      return "No"
+    end
+  end
+
+  
+  def max_rank_name(max_rank)   #needed since max_rank and max_age can be nil
+    if max_rank
+      return rank_name(max_rank)
+    else
+      return "None"
+    end
+  end
+
+  def max_age_name(max_age)
+    if max_age
+      return max_age
+    else
+      return "None"
+    end
+  end
+
+
+
+  def phone_name(phone)     #formats phone numbers nicely
+    area = phone[0..2]
+    local = phone[3..5]
+    last = phone[6..9]
+    return "#{area}-#{local}-#{last}"
+  end
+
+
+
+
+  def age_range(min, max)   #formats age and rank ranges to pass cucumbers
+    if max
+     "#{min} - #{max}" 
+    else
+      "#{min} and up"
+    end
+  end
+
+  def rank_range(min, max)
+    if max
+     "#{rank_name(min)} - #{rank_name(max)}"
+     else
+     "#{rank_name(min)} and higher"
+   end
+  end
+
+
 end

@@ -1,0 +1,17 @@
+
+  <div id="side_bar" class="well student-sidebar" data-offset-bottom="300">
+   	<h4>Student Links</h4>
+   	<div class="btn-group btn-group-vertical side_list">
+		<%= link_to 'Create New Student', new_student_path, :class => "btn btn-info side_btn" %>
+		<%= link_to 'All Students', students_path, :class => "btn side_btn" %>
+		<%= link_to 'Active', active_students_path, :class => "btn side_btn" %>
+		<%= link_to 'Inactive', inactive_students_path, :class => "btn side_btn" %>
+		<%= link_to 'Waiver Signed', signed_students_path, :class => "btn side_btn" %>
+		<%= link_to 'Waiver Not Signed', unsigned_students_path, :class => "btn side_btn" %>
+		<%= link_to 'Juniors', juniors_students_path, :class => "btn side_btn" %>
+		<%= link_to 'Seniors', seniors_students_path, :class => "btn side_btn" %>
+		<%= link_to 'Gups', gups_students_path, :class => "btn side_btn" %>
+		<%= link_to 'Dans', dans_students_path, :class => "btn side_btn" %>
+		
+	</div>
+  </div>

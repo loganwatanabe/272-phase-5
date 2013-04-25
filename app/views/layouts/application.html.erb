@@ -7,43 +7,68 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <!-- NOTE: assumes bootstrap grid system -->
   <div class="wrapper">
     <div class="container">
     <!-- TITLE BAR -->
-  	<%= link_to(image_tag('amk_titlebar.png'), home_path) %>
-  	<!-- NAV BAR -->
-  	<div class="navbar">
-  	  <div class="navbar-inner">
-  	    <div class="container">
-  	      <%= render :partial => "partials/navigation" %>
-  	    </div>
-  	  </div>
-  	</div>
-  	</div>
-  	<!-- MAIN CONTENT -->
-  	<div class="container">
-  		<!-- flash messages -->
-  		<% flash.each do |name, msg| %>
-  			<div class="alert alert-<%= name == :notice ? "success" : "error" %>">
-  				<a class="close" data-dismiss="alert">&times;</a>
-  				<%= msg %>
-  			</div>
-      <% end %>
-  		<div class="row">
-  			<!-- main content placed here -->
-  			<div class="span12">
-  			  <div id="main_content">
-  			   <%= yield %>
-  			  </div>
-  			</div>
-  		</div>
-  	</div>
-  </div>
-	
-	<!-- FOOTER -->
-	<footer>
+    
+    <!-- NAV BAR -->
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href=<%= home_path%>>A &amp; M Karate Tournament System</a>
+          <ul class="nav">
+            <li><%= link_to "Students", students_path %></li>
+            <li><%= link_to "Sections", sections_path %></li>
+            <li><%= link_to "Events", events_path %>
+            </li>            
+            <li><%= link_to "Registrations", registrations_path %>
+            </li>
+          </ul>
+          
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+    <!-- MAIN CONTENT -->
     <div class="container">
-			<%= render :partial => "partials/footer" %>
+
+      <% flash.each do |name, msg| %>
+      <div class="alert alert-<%= :notice ? "success" : "error" %>">
+        <a class="close" data-dismiss="alert">x</a>
+          <%= msg %>
+      </div>
+         <% end %>
+
+         
+      <div class="row">
+        <!-- main content placed here-->
+          <div class="span4 bs-docs-sidebar">
+            <div class="sidebar">
+              <%= link_to image_tag('rex2.jpg'), home_path %>
+             <%= render :partial => "#{controller.controller_name}/sidebar" %>
+            </div>
+          </div>
+
+
+        <div class="span8">
+          <div id="main_content">
+           <%= yield %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+  
+  <!-- FOOTER -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <%= render :partial => "partials/footer" %>
     </div>
   </footer>
 </body>

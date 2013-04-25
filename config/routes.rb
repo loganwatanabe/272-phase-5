@@ -1,20 +1,40 @@
 Karate67272::Application.routes.draw do
 
+
   # Generated routes
   resources :events
   resources :registrations
   resources :sections
   resources :students
-  
-  # Semi-static page routes
+
+  # Sets the root url
+  root :to => 'home#index'
+
+  #sets routes for home views
   match 'home' => 'home#index', :as => :home
   match 'about' => 'home#about', :as => :about
   match 'contact' => 'home#contact', :as => :contact
   match 'privacy' => 'home#privacy', :as => :privacy
-  match 'search' => 'home#search', :as => :search
 
-  # Set the root url
-  root :to => 'home#index'
+  #sets routes for student views
+  match 'active_students' => 'students#active', :as => :active_students
+  match 'inactive_students' => 'students#inactive', :as => :inactive_students
+  match 'signed' => 'students#signed', :as => :signed_students
+  match 'unsigned' => 'students#unsigned', :as => :unsigned_students
+  match 'juniors' => 'students#juniors', :as => :juniors_students
+  match 'seniors' => 'students#seniors', :as => :seniors_students
+  match 'dans' => 'students#dans', :as => :dans_students
+  match 'gups' => 'students#gups', :as => :gups_students
+
+
+  #sets routes for event views
+  match 'active_events' => 'events#active', :as => :active_events
+  match 'inactive_events' => 'events#inactive', :as => :inactive_events
+
+  #sets routes for section views
+  match 'active_sections' => 'sections#active', :as => :active_sections
+  match 'inactive_sections' => 'sections#inactive', :as => :inactive_sections
+
   
 end
 

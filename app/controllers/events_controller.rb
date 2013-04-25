@@ -1,14 +1,16 @@
 class EventsController < ApplicationController
+  
 
   def index
-    @events = Event.alphabetical.paginate(:page => params[:page]).per_page(8)
-    @inactive_events = Event.inactive.alphabetical.paginate(:page => params[:page]).per_page(8)
+    @events = Event.alphabetical.paginate(:page => params[:page]).per_page(20)
   end
 
   def show
+    #get info on one event
     @event = Event.find(params[:id])
+
   end
-  
+
   def new
     @event = Event.new
   end
@@ -20,11 +22,9 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(params[:event])
     if @event.save
-      # if saved to database
       flash[:notice] = "Successfully created #{@event.name}."
-      redirect_to @event # go to show event page
+      redirect_to @event
     else
-      # return to the 'new' form
       render :action => 'new'
     end
   end
@@ -42,7 +42,19 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
     @event.destroy
-    flash[:notice] = "Successfully removed #{@event.name} from karate tournament system"
+    flash[:notice] = "Successfully destroyed #{@event.name}."
     redirect_to events_url
   end
+
+  #Custom views
+
+  def active
+    @active_events = Event.active.alphabetical.paginate(:page => params[:page]).per_page(20)
+  end
+
+  def inactive
+    @inactive_events = Event.inactive.alphabetical.paginate(:page => params[:page]).per_page(20)
+  end
+
+
 end

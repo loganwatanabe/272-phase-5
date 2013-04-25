@@ -1,1 +1,18 @@
-<%= render :partial => 'form' %>
+<%= simple_form_for @student, :html => { :class => 'form-horizontal' } do |f| %>
+  <fieldset>
+    <legend><%= controller.action_name.capitalize %> student</legend>
+     <%= f.input :first_name %>
+     <%= f.input :last_name %>
+       <%= f.input :date_of_birth, :as => :date, :order => [:month, :day, :year], :start_year => Date.today.year - 120, :end_year => Date.today.year - 5, :use_month_numbers => false, :include_blank => true %>
+       <%=f.input :rank, :collection => (1..15), :label_method =>  lambda{|i| rank_name(i)} %>
+       <%=f.input :phone%>
+       <%=f.input :waiver_signed%>
+       <%=f.input :active%>
+
+		<div class="form-actions">
+		  <%= f.submit "Update Student", :class => 'btn btn-primary' %>
+		  <%= link_to 'Cancel', students_path, :class => 'btn' %>
+		</div>
+
+  </fieldset>
+<% end %>
