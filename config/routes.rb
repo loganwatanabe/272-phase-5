@@ -6,6 +6,10 @@ Karate67272::Application.routes.draw do
   resources :registrations
   resources :sections
   resources :students
+  resources :tournaments
+  resources :dojo_students
+  resources :dojos
+  resources :users
 
   # Sets the root url
   root :to => 'home#index'
@@ -34,6 +38,12 @@ Karate67272::Application.routes.draw do
   #sets routes for section views
   match 'active_sections' => 'sections#active', :as => :active_sections
   match 'inactive_sections' => 'sections#inactive', :as => :inactive_sections
+
+  #sets routes for tournament views
+  match 'active_tournaments' => 'tournaments#active', :as => :active_tournaments
+  match 'inactive_tournaments' => 'tournaments#inactive', :as => :inactive_tournaments
+  match 'past_tournaments' => 'tournaments#past', :as => :past_tournaments
+  match 'upcoming_tournaments' => 'tournaments#upcoming', :as => :upcoming_tournaments
 
   
 end

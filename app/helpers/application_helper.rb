@@ -66,10 +66,19 @@ module ApplicationHelper
     end
   end
 
-    def registered?(student, section)  #checks to see is a student is already registered for a given section
+  def registered?(student, section)  #checks to see is a student is already registered for a given section
       student_sections=Registration.for_student(student).map{|i| i.section}
       student_sections.include?(section)
   end
+
+
+  def section_winner(section)
+    registrations = Registration.for_section(section)
+    winner = registrations.select{|r| r.final_standing == 1}
+    winner.each{|r| return r.student} #returns a student
+
+  end
+
   
     def activity(variable)
     if variable
@@ -113,7 +122,9 @@ module ApplicationHelper
     return "#{area}-#{local}-#{last}"
   end
 
-
+  def date_format(date)
+    date.strftime("%m/%d/%y") 
+  end
 
 
   def age_range(min, max)   #formats age and rank ranges to pass cucumbers
