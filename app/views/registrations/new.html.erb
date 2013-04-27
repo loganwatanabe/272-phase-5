@@ -1,1 +1,138 @@
-<%= render :partial => 'form' %>
+<h1>Registration</h1>
+
+  <h4> Registration for: </h4>
+<% if !@student.nil? %>  <!--     One big if/else statement based on what id was passed    -->
+
+  <!--  If the user came from a student's page to register that student  -->
+
+    <table class="table table-striped">
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Rank</th>
+      </tr>
+      <tr>
+        <td><%= link_to @student.name, student_path(@student) %></td>
+        <td><%= @student.age %></td>
+        <td><%= "#{rank_name(@student.rank)}" %></td>
+      </tr>
+    </table>
+
+
+
+<h6>Select a section to register for:</h6>
+  <table class="table table-striped">
+  <tr>
+    <th>Event</th>
+    <th>Rank(s)</th>
+    <th>Age(s)</th>
+    <th></th>
+  </tr>
+
+  <% eligible_sections_for_student(@student).each do |section| %>
+    <tr>
+      <td><%= link_to section.event.name, section_path(section) %></td>
+      <td><%= rank_range(section.min_rank, section.max_rank) %></td>
+      <td><%= age_range(section.min_age, section.max_age) %></td>
+
+
+      <% if registered?(@student, section) %>        <!--no button if they're already registered-->
+      <td><a class="btn btn-mini disabled">Already Registered</a></td>
+      <% else %>
+      
+      <!--   Passes hidden fields (stud/sec ids) into a (invisible) simple_form that is submitted by pressing "Register" to create new reg  -->
+
+          <%= simple_form_for @registration, :html => { :class => 'form-horizontal' } do |f| %>
+          <fieldset>
+            <%= f.hidden_field :section_id, :value => section.id %>
+            <%= f.hidden_field :student_id, :value => @student.id %>
+            <%= f.hidden_field :date, :value => Date.current.to_date %>
+            <td><%= f.submit 'Register', :class => 'btn btn-mini btn-primary' %></td>
+          </fieldset>
+          <% end %>
+
+      <% end %>
+
+    </tr>
+  <% end %>
+</table>
+<span class="smtext">
+<%= will_paginate eligible_sections_for_student(@student), :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>
+
+
+
+
+
+
+
+<!--  If the user came from a section page to register students for that section    -->
+<% elsif !@section.nil? %>
+
+  <h4>Section</h4>
+
+    <table class="table table-striped">
+    <tr>
+      <th>Event</th>
+      <th>Rank(s)</th>
+      <th>Age(s)</th>
+    </tr>
+    <tr>
+      <td><%= link_to @section.event.name, section_path(@section) %></td>
+      <td><%= rank_range(@section.min_rank, @section.max_rank) %></td>
+      <td><%= age_range(@section.min_age, @section.max_age) %></td>
+    </tr>
+  </table>
+
+
+    <h5>Select a student to register:</h5>
+
+  <table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Rank</th>
+    <th></th>
+  </tr>
+
+
+  <% eligible_students_for_section(@section).each do |student| %>
+    <tr>
+      <td><%= link_to student.name, student_path(student) %></td>
+      <td><%= student.age %></td>
+      <td><%= "#{rank_name(student.rank)}" %></td>
+
+      <% if registered?(student, @section) %>
+      <td><div class="btn btn-mini disabled">Already Registered</div></td>  <!--no button if they're already registered-->
+      <% else %>
+
+
+<!--   Passes hidden fields (stud/sec ids) into a (invisible) simple_form that is submitted by pressing "Register" to create new reg  -->
+
+      <%= simple_form_for @registration, :html => { :class => 'form-horizontal' } do |f| %>
+      <fieldset>
+        <%= f.hidden_field :section_id, :value => @section.id %>
+        <%= f.hidden_field :student_id, :value => student.id %>
+        <%= f.hidden_field :date, :value => Date.current.to_date %>
+        <td><%= f.submit 'Register', :class => 'btn btn-mini btn-primary' %></td>
+      </fieldset>
+      <% end %>
+
+      <% end %>
+
+    </tr>
+  <% end %>
+</table>
+<span class="smtext">
+<%= will_paginate eligible_students_for_section(@section), :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>
+
+<% else %>
+
+<!--  They shouldn't be able to get here. Unless they mess around with the routes.  Those sneaky bastards.   -->
+
+oop.  this is awkward...
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<% end %>

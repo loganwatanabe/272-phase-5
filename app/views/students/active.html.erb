@@ -1,0 +1,28 @@
+<h2>Active Students</h2>
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Rank</th>
+  </tr>
+
+  <% @active_students.each do |student| %>
+    <tr>
+      <td><%= link_to student.name, student_path(student) %></td>
+      <td><%= student.age %></td>
+      <td><%= "#{rank_name(student.rank)}" %></td>
+    </tr>
+  <% end %>
+</table>
+<span class="smtext">
+<%= will_paginate @active_students, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>
+
+
+<!--This is to ensure that pages with no content don't look bad, with the footer being all the way near the top -->
+<% if @active_students.size == 0 %>
+<h5>No active students</h5>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<% elsif @active_students.size<20 ; (20-@active_students.size).times do %>
+  <br>
+<% end; end %>

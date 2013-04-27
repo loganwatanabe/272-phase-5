@@ -1,0 +1,34 @@
+<h3>Active Sections</h3>
+
+
+<table class="table table-striped">
+  <tr>
+    <th>Event</th>
+    <th>Rank(s)</th>
+    <th>Age(s)</th>
+    <th>Registrants</th>
+  </tr>
+
+  <% @active_sections.each do |section| %>
+    <tr>
+      <td><%= link_to section.event.name, section_path(section) %></td>
+      <td><%= rank_range(section.min_rank, section.max_rank) %></td>
+      <td><%= age_range(section.min_age, section.max_age) %></td>
+      <td><%= Student.registered_for_section(section).size %></td>
+
+    </tr>
+  <% end %>
+</table>
+<span class="smtext">
+<%= will_paginate @active_sections, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>
+
+
+
+<!--This is to ensure that pages with no content don't look bad, with the footer being all the way near the top -->
+<% if @active_sections.size == 0 %>
+<h5>No active sections</h5>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<% elsif @active_sections.size<20 ; (20-@active_sections.size).times do %>
+	<br>
+<% end; end %>

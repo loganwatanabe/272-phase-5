@@ -1,5 +1,19 @@
-<%# if current_user && current_user.is_admin? %>
-  <%# render :partial => "admin_home" %>
-<%# else %>
-  <%= render :partial => "general_home" %>
-<%# end %>
+
+<h1>A&M Karate School Tournament System</h1>
+
+<%= image_tag ("kkid.jpg"), :class=>"home-img img-polaroid"%>
+
+<h4>Welcome (admin) to your database application to track, register, and manage Karate students and tournaments.</h4>
+<h5>To get started, use the links below, to the left, or above to navigate the site.</h5>
+
+<tr>
+	<td>
+		<%= link_to 'students', students_path, :class => "btn btn-large btn-info" %></td>
+	<td>
+		<%= link_to 'sections', sections_path, :class => "btn btn-large btn-info" %></td>
+
+	<td>
+		<%= link_to 'events', events_path, :class => "btn btn-large btn-info"%></td>
+</tr>
+
+<h5>To register a student for a section go to the student or section's detail page and click the "Register" button.</h5>

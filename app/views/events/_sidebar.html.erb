@@ -1,0 +1,14 @@
+
+  <div id="side_bar" class="well">
+   	<h4>Event Links</h4>
+	<div class="btn-group btn-group-vertical side_list">
+	 
+	  	<%= link_to 'Create New Event', new_event_path, :class => "btn btn-info side_btn" %>
+	  	<%= link_to 'All Events', events_path, :class => "btn side_btn" %>
+		<%= link_to 'Active', active_events_path, :class => "btn side_btn"  %>
+		<%= link_to 'Inactive', inactive_events_path, :class => "btn side_btn"  %>
+
+	  
+
+	</div>
+  </div>

@@ -1,0 +1,94 @@
+<h1><%= @tournament.name %></h1>
+
+<p>
+  <b>Name:</b>
+  <%= @tournament.name %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= date_format(@tournament.date) %>
+</p>
+
+
+<p>
+  <b>Rank(s):</b>
+  <%= rank_range(@tournament.min_rank, @tournament.max_rank) %>
+</p>
+
+
+<p>
+  <b>Active:</b>
+  <%= activity(@tournament.active) %>
+</p>
+
+
+
+<br><br>
+
+
+
+<p><!--Functionality buttons-->
+  <%= link_to 'Edit', edit_tournament_path(@tournament), :class => 'btn btn-info' %>
+  <% if @tournament.active %>
+    <%= link_to 'Create Section for Tournament', new_section_path(:tournament_id => @tournament.id), :class => 'btn btn-primary' %>
+  <% else %>
+    <a href="#" class="btn disabled">Inactive tournaments cannot have new sections assigned</a>
+  <% end %>
+  <%= link_to 'Delete tournament', tournament_path(@tournament), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+</p>
+
+
+
+<br><br>
+
+
+
+<p>
+  <b>Tournament Sections:</b>
+<table class="table table-striped">
+  <tr>
+    <th>Event</th>
+    <th>Rank(s)</th>
+    <th>Age(s)</th>
+    <th>Registrants</th>
+    <% if @tournament.date < Date.current.to_date %>  <!--assuming here that any tournament with a past date is completed-->
+    <th>Winner</th>
+    <% end %>
+  </tr>
+
+  <% @sections.each do |section| %>
+    <tr>
+      <td><%= link_to section.event.name, section_path(section) %></td>
+      <td><%= rank_range(section.min_rank, section.max_rank) %></td>
+      <td><%= age_range(section.min_age, section.max_age) %></td>
+      <td><%= Student.registered_for_section(section).size %></td>
+
+      <% if @tournament.date < Date.current.to_date %>	<!--assuming here that any tournament with a past date is completed-->
+      <td> <%= section_winner(section).name %> </td>
+      <% end %>
+      
+    </tr>
+  <% end %>
+</table>
+
+<span class="smtext">
+<%= will_paginate @sections, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>
+
+</p>
+
+
+
+<!--This is to ensure that pages with no content don't look bad, with the footer being all the way near the top -->
+<% if @sections.size == 0 %>
+<h5>No sections for this tournament</h5>
+<br><br><br>
+<% end %>
+
+
+
+
+<div class="form-actions">
+  <%= link_to 'Back to tournaments', tournaments_path, :class => 'btn btn' %><t>
+</div>

@@ -1,22 +1,100 @@
-<div class="row">
-	<div class="span8">
-		<h3>Student Details</h3>
-		<%= render :partial => "student_details" %>
-	</div>
-	<div class="span4">
-	  <h3>Tournament Activity</h3>
-		<%= render :partial => "activities" unless @registrations.empty? %>
-	  
-	  <!-- <p class="supertiny">&nbsp;</p> -->
-		<!-- <h3>Dojo History</h3> -->
-		<%# render :partial => "dojo_history" unless @dojo_history.empty? %>
-		<%# link_to(raw("<i class='icon-plus icon-white'></i> New Dojo"), new_dojo_student_path(:id => @student.id, :from => 'student'), :class => 'btn btn-primary') %>
-		
-	</div>
-</div>
+
+<h1><%= @student.name %></h1>
+
+<p>
+  <b>Name:</b>
+  <%= @student.name %>
+</p>
+
+<p>
+  <b>Date of Birth:</b>
+  <%= @student.date_of_birth.strftime("%m/%d/%y") %>
+</p>
+
+<p>
+  <b>Age:</b>
+  <%= @student.age %>
+</p>
+
+<p>
+  <b>Rank:</b>
+  <%= "#{rank_name(@student.rank)}" %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= phone_name(@student.phone) %>
+</p>
+
+<p>
+  <b>Waiver Signed:</b>
+  <%= waiver_name(@student.waiver_signed) %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%= activity(@student.active) %>
+</p>
+
+
+
+<br><br>
+
+
+
+<p><!--Functionality buttons-->
+  <%= link_to 'Edit', edit_student_path(@student), :class => 'btn btn-info' %>
+  <% if @student.active %>
+    <%= link_to 'Register for Section', new_registration_path(:student_id => @student.id, :section_id => nil), :class => 'btn btn-primary' %>
+  <% else %>
+    <a href="#" class="btn disabled">Inactive students cannot register</a>
+  <% end %>
+  <%= link_to 'Delete Student', student_path(@student), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+</p>
+
+
+
+<br><br>
+
+
+
+<p>
+  <b>Tournament Activity:</b>
+  <table class="table table-striped">
+  <tr>
+    <th>Event</th>
+    <th>Rank(s)</th>
+    <th>Age(s)</th>
+    <th>Date Registered</th>
+    <th></th>
+  </tr>
+
+  <% @registrations.each do |reg| %>
+    <tr>
+      <td><%= link_to reg.event.name, section_path(reg.section) %></td>
+      <td><%= rank_range(reg.section.min_rank, reg.section.max_rank) %></td>
+      <td><%= age_range(reg.section.min_age, reg.section.max_age) %></td>
+      <td><%= reg.date.strftime("%m/%d/%y") %></td>
+      <td><%= link_to 'Delete Registration', registration_path(reg), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %></td>
+    </tr>
+  <% end %>
+</table>
+</p>
+<span class="smtext">
+<%= will_paginate @registrations, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>
+
+
+
+<!--This is to ensure that pages with no content don't look bad, with the footer being all the way near the top -->
+<% if @registrations.size == 0 %>
+<h5>Not registered for any sections</h5>
+<br><br><br>
+<% end %>
+
+
+
 
 <div class="form-actions">
-  <%= link_to raw("<i class='icon-list'></i> Display All Students"), students_path, :class => 'btn'  %>&nbsp;&nbsp;
-  <%= link_to raw("<i class='icon-pencil'></i> Edit #{@student.proper_name}"), edit_student_path(@student), :class => 'btn' %>&nbsp;&nbsp;
-  <%= link_to raw("<i class='icon-remove icon-white'></i> Delete #{@student.proper_name}"), student_path(@student), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+  <%= link_to 'Back to Students', students_path, :class => 'btn btn' %><t>
 </div>

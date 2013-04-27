@@ -11,6 +11,7 @@ class DojoStudent < ActiveRecord::Base
   # Scopes
   scope :current, where('end_date IS NULL')
   scope :by_dojo, joins(:dojo).order('name')
+  scope :for_dojo, lambda {|dojo_id| where("dojo_id = ?", dojo_id) } #this needs a test!!!!!!!!!?????????????
   scope :by_student, joins(:student).order('last_name, first_name')
   scope :chronological, order('start_date DESC, end_date DESC')
   

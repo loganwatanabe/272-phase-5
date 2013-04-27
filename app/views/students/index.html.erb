@@ -1,12 +1,68 @@
-<div class="row">
-	<div class="span8">
-		<h3>Active Students</h3>
-		<%= render :partial => "active_students" %>
-	</div>
-	<div class="span4">
-		<h3>Inactive Students</h3>
-		<%= render :partial => "inactive_students" %>
-	</div>
-</div>
 
-<%= link_to raw("<i class='icon-plus icon-white'></i> Add a New Student"), new_student_path, :class => 'btn btn-primary', :id => 'Create Student' %>
+<h1>Students</h1>
+<h2>Active Students</h2>
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Rank</th>
+  </tr>
+
+  <% @active_students.each do |student| %>
+    <tr>
+      <td><%= link_to student.name, student_path(student) %></td>
+      <td><%= student.age %></td>
+      <td><%= "#{rank_name(student.rank)}" %></td>
+    </tr>
+  <% end %>
+</table>
+<span class="smtext">
+<%= will_paginate @active_students, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>
+
+
+
+<!--This is to ensure that pages with no or little content don't look bad, with the footer being all the way near the top -->
+<% if @active_students.size == 0 %>
+<h5>No active students</h5>
+<br><br><br><br><br><br><br>
+<% elsif @active_students.size<10 ; (10-@active_students.size).times do %>
+  <br>
+<% end; end %>
+
+
+
+<br><br><br>
+
+
+
+
+<h2>Inactive Students</h2>
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Rank</th>
+  </tr>
+
+  <% @inactive_students.each do |student| %>
+    <tr>
+      <td><%= link_to student.name, student_path(student) %></td>
+      <td><%= student.age %></td>
+      <td><%= "#{rank_name(student.rank)}" %></td>
+    </tr>
+  <% end %>
+</table>
+<span class="smtext">
+<%= will_paginate @inactive_students, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>
+
+
+
+<!--This is to ensure that pages with no or little content don't look bad, with the footer being all the way near the top -->
+<% if @inactive_students.size == 0 %>
+<h5>No inactive students</h5>
+<br><br><br><br><br><br><br>
+<% elsif @inactive_students.size<10 ; (10-@inactive_students.size).times do %>
+  <br>
+<% end; end %>

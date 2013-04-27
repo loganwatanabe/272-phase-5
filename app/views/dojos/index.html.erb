@@ -1,0 +1,28 @@
+<h1>Dojos</h1>
+<h2>All Dojos</h2>
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Location</th>
+  </tr>
+
+  <% @dojos.each do |dojo| %>
+    <tr>
+      <td><%= link_to dojo.name, dojo_path(dojo) %></td>
+      <td><%= "#{dojo.city}, #{dojo.state}" %></td>
+    </tr>
+  <% end %>
+</table>
+<span class="smtext">
+<%= will_paginate @dojos, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>
+
+
+
+<!--This is to ensure that pages with no or little content don't look bad, with the footer being all the way near the top -->
+<% if @dojos.size == 0 %>
+<h5>No registered dojos</h5>
+<br><br><br><br><br><br><br>
+<% elsif @dojos.size<10 ; (10-@dojos.size).times do %>
+  <br>
+<% end; end %>

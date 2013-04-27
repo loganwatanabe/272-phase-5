@@ -1,12 +1,76 @@
-<div class="row">
-	<div class="span8">
-		  <h3>Current Sections</h3>
-		  <%= render :partial => "current_sections" %>
-	</div>
-	<div class="span4">
-		<h3>Choose Tournament</h3>
-		<%# render :partial => "select_tournament" %>
-	</div>
-</div>
+<h1>Sections</h1>
+<h3>Current Sections</h3>
 
-<%= link_to raw("<i class='icon-plus icon-white'></i> Add a New Section"), new_section_path, :class => 'btn btn-primary', :id => 'Create Section' %>
+
+<table class="table table-striped">
+  <tr>
+    <th>Event</th>
+    <th>Rank(s)</th>
+    <th>Age(s)</th>
+    <th>Registrants</th>
+  </tr>
+
+  <% @active_sections.each do |section| %>
+    <tr>
+      <td><%= link_to section.event.name, section_path(section) %></td>
+      <td><%= if section.max_rank then "#{rank_name(section.min_rank)} - #{rank_name(section.max_rank)} " else " #{rank_name(section.min_rank)} and higher" end %></td>
+      <td><%= if section.max_age then "#{section.min_age} - #{section.max_age} " else " #{section.min_age} and up" end %></td>
+      <td><%= Student.registered_for_section(section).size %></td>
+
+    </tr>
+  <% end %>
+</table>
+<span class="smtext">
+<%= will_paginate @active_sections, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>
+
+
+<!-- Will make the page look nice if there is no active sections-->
+<% if @active_sections.size == 0 %>
+<h5>No active sections</h5>
+<br><br><br><br><br><br><br><br><br>
+<% elsif @active_sections.size<10 ; (10-@active_sections.size).times do %>
+  <br>
+<% end; end %>
+
+
+
+
+
+
+
+
+<br><br><br><br><br><br><br>
+<h3> Inactive Sections </h3>
+
+<table class="table table-striped">
+  <tr>
+    <th>Event</th>
+    <th>Rank(s)</th>
+    <th>Age(s)</th>
+    <th>Registrants</th>
+  </tr>
+
+  <% @inactive_sections.each do |section| %>
+    <tr>
+      <td><%= link_to section.event.name, section_path(section) %></td>
+      <td><%= if section.max_rank then "#{rank_name(section.min_rank)} - #{rank_name(section.max_rank)} " else " #{rank_name(section.min_rank)} and higher" end %></td>
+      <td><%= if section.max_age then "#{section.min_age} - #{section.max_age} " else " #{section.min_age} and up" end %></td>
+      <td><%= Student.registered_for_section(section).size %></td>
+
+    </tr>
+  <% end %>
+</table>
+<span class="smtext">
+<%= will_paginate @inactive_sections, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>
+
+
+
+<!-- Will make the page look nice if there is no active sections-->
+<% if @inactive_sections.size == 0 %>
+<h5>No inactive sections</h5>
+<br><br><br><br><br><br><br><br><br>
+<% elsif @inactive_sections.size<10 ; (10-@inactive_sections.size).times do %>
+  <br>
+<% end; end %>

@@ -1,0 +1,30 @@
+
+<h2> Students who have their waivers signed</h2>
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Rank</th>
+  </tr>
+
+  <% @signed.each do |student| %>
+    <tr>
+      <td><%= link_to student.name, student_path(student) %></td>
+      <td><%= student.age %></td>
+      <td><%= "#{rank_name(student.rank)}" %></td>
+    </tr>
+  <% end %>
+</table>
+<span class="smtext">
+<%= will_paginate @signed, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>
+
+
+<!--This is to ensure that pages with no content don't look bad, with the footer being all the way near the top -->
+<% if @signed.size == 0 %>
+<h5>All students need to sign their waivers!!!</h5>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<% elsif @signed.size<20 ; (20-@signed.size).times do %>
+	<br>
+<% end; end %>
+
