@@ -45,6 +45,10 @@ Karate67272::Application.routes.draw do
   match 'past_tournaments' => 'tournaments#past', :as => :past_tournaments
   match 'upcoming_tournaments' => 'tournaments#upcoming', :as => :upcoming_tournaments
 
+  #sets routes for dojo views
+  match 'active_dojos' => 'dojos#active', :as => :active_dojos
+  match 'inactive_dojos' => 'dojos#inactive', :as => :inactive_dojos
+
   
 end
 

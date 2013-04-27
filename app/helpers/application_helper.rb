@@ -76,7 +76,10 @@ module ApplicationHelper
     registrations = Registration.for_section(section)
     winner = registrations.select{|r| r.final_standing == 1}
     winner.each{|r| return r.student} #returns a student
+  end
 
+  def dojo_address(dojo)
+    return "#{dojo.street} \n #{dojo.city}, #{dojo.state}   #{dojo.zip}"
   end
 
   
@@ -123,7 +126,11 @@ module ApplicationHelper
   end
 
   def date_format(date)
-    date.strftime("%m/%d/%y") 
+    if date.nil?
+      "Currently Attending"
+    else
+      date.strftime("%m/%d/%y")
+    end 
   end
 
 
