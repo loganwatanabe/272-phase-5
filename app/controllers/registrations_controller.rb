@@ -14,8 +14,14 @@ class RegistrationsController < ApplicationController
     @registration = Registration.new
     @registration.student_id = params[:student_id] unless params[:student_id].nil?    #assigns foreign keys passed in
     @registration.section_id = params[:section_id] unless params[:section_id].nil?
-    @student = Student.find(@registration.student_id) unless @registration.student.nil? #these are passed in, but only one
-    @section = Section.find(@registration.section_id) unless @registration.section.nil? #can be passed in for 1 new page
+
+    @student = Student.find(@registration.student_id) unless @registration.student.nil? #if student was passed in
+    #@sections = eligible_sections_for_student(@student).paginate(:page => params[:page]).per_page(20) unless @registration.student.nil?
+
+
+    @section = Section.find(@registration.section_id) unless @registration.section.nil? #if section was passed in
+    #@students = eligible_students_for_section(@section).paginate(:page => params[:page]).per_page(20) unless @registration.section.nil?
+
   end
 
 

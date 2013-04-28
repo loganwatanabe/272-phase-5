@@ -22,6 +22,11 @@
 </p>
 
 <p>
+  <b>Current Dojo:</b>
+  <%= link_to @student.current_dojo.name, dojo_path(@student.current_dojo) %>
+</p>
+
+<p>
   <b>Phone:</b>
   <%= phone_name(@student.phone) %>
 </p>
@@ -37,6 +42,32 @@
 </p>
 
 
+<!--ACCOUNT INFORMATION -->
+
+<br>
+
+<h5> Account Information </h5>
+<% if !@user.nil? %>
+<p>
+  <b>Email:</b>
+  <%= @user.email %>
+</p>
+
+<p>
+  <b>Role:</b>
+  <%= role_name(@user) %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%= activity(@user.active) %>
+</p>
+
+
+
+<% else %>
+Student does not have a user account.
+<% end %>
 
 <br><br>
 
@@ -66,6 +97,8 @@
     <th>Rank(s)</th>
     <th>Age(s)</th>
     <th>Date Registered</th>
+    <th>Fee Paid?</th>
+    <th>Final Standing</th>
     <th></th>
   </tr>
 
@@ -75,7 +108,14 @@
       <td><%= rank_range(reg.section.min_rank, reg.section.max_rank) %></td>
       <td><%= age_range(reg.section.min_age, reg.section.max_age) %></td>
       <td><%= reg.date.strftime("%m/%d/%y") %></td>
-      <td><%= link_to 'Delete Registration', registration_path(reg), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %></td>
+      <td><%= activity(reg.fee_paid) %></td>
+      <td><%= reg.final_standing %></td>
+
+      <td>
+        <a href="#" class="btn btn-small btn-info"><i class="icon-edit"></i></a>
+        <%= link_to 'Delete Registration', registration_path(reg), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+      </td>
+
     </tr>
   <% end %>
 </table>
@@ -84,13 +124,67 @@
 <%= will_paginate @registrations, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
 </span>
 
+<!--This is to ensure that pages with no content don't look bad, with the footer being all the way near the top -->
+<% if @registrations.size == 0 %>
+<h5>Not registered for any sections</h5>
+<br><br><br>
+<% end %>
 
+
+
+
+
+<p>
+  <b>Dojo History:</b>
+  <table class="table table-striped">
+  <tr>
+    <th>Dojo</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th></th>
+  </tr>
+
+  <% @dojo_students.each do |ds| %>
+    <tr>
+      <td><%= link_to ds.dojo.name, dojo_path(ds.dojo) %></td>
+      <td><%= date_format(ds.start_date) %></td>
+      <td><%= date_format(ds.end_date) %></td>
+
+      <% if ds.end_date == nil %>
+      <td>
+        <%= link_to 'End Record', dojo_student_path(ds), :method => :end, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-info' %>
+      </td>
+      <% else %>
+      <td>
+        <%= link_to 'Delete Record', dojo_student_path(ds), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+      </td>
+      <% end %>
+
+    </tr>
+  <% end %>
+
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><%= link_to 'Add New Dojo', new_dojo_student_path(:student_id => @student.id), :class => 'btn btn-mini btn-success' %></td>
+  </tr>
+
+
+
+
+</table>
+</p>
+<span class="smtext">
+<%= will_paginate @registrations, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>
 
 <!--This is to ensure that pages with no content don't look bad, with the footer being all the way near the top -->
 <% if @registrations.size == 0 %>
 <h5>Not registered for any sections</h5>
 <br><br><br>
 <% end %>
+
 
 
 

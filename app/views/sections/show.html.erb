@@ -2,6 +2,12 @@
 <h1><%= "Section Details" %></h1>
 
 <p>
+  <b>Tournament:</b>
+  <%= link_to @section.tournament.name, tournament_path(@section.tournament) %>
+</p>
+
+
+<p>
   <b>Event:</b>
   <%= @section.event.name %>
 </p>
@@ -14,6 +20,16 @@
 <p>
   <b>Rank(s):</b>
   <%= rank_range(@section.min_rank, @section.max_rank)%>
+</p>
+
+<p>
+  <b>Location:</b>
+  <%= if @section.location.nil? then "No location set" else @section.location end %>
+</p>
+
+<p>
+  <b>Round Time:</b>
+  <%= time_format(@section.round_time) %>
 </p>
 
 <p>
@@ -51,6 +67,8 @@
     <th>Age</th>
     <th>Rank</th>
     <th>Date Registered</th>
+    <th>Fee Paid?</th>
+    <th>Final Standing</th>
     <th></th>
   </tr>
 
@@ -60,7 +78,14 @@
       <td><%= reg.student.age %></td>
       <td><%= "#{rank_name(reg.student.rank)}" %></td>
       <td><%= reg.date.strftime("%m/%d/%y") %></td>
-      <td><%= link_to 'Delete Registration', registration_path(reg), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %></td>
+      <td><%= activity(reg.fee_paid) %></td>
+      <td><%= reg.final_standing %></td>
+
+      <td>
+         <a href="#" class="btn btn-small btn-info"><i class="icon-edit"></i></a>
+        <%= link_to 'Delete Registration', registration_path(reg), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+      </td>
+      
     </tr>
   <% end %>
 </table>

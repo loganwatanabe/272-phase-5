@@ -37,7 +37,11 @@ module ApplicationHelper
   def eligible_students_for_section(section)
     # I want students between a set of ranks, between a set of ages, who are active and have the list arranged in alphabetical order.
     # Thankfully I have methods for all of those which were done and tested last phase, so this task is now super easy...
-    Student.ranks_between(section.min_rank, section.max_rank).ages_between(section.min_age, section.max_age).active.alphabetical.all
+    students = Student.ranks_between(section.min_rank, section.max_rank).ages_between(section.min_age, section.max_age).active.alphabetical.paginate(:page => params[:page]).per_page(20)
+  end
+
+  def eligible_sections_for_student(student)
+    sections = Section.for_rank(student.rank).for_age(student.age).active.alphabetical.paginate(:page => params[:page]).per_page(20)
   end
   
   def eligible_unregistered_students_for_section(section)
@@ -83,11 +87,24 @@ module ApplicationHelper
   end
 
   
-    def activity(variable)
+  def activity(variable)
     if variable
       return "Yes"
     else
       return "No"
+    end
+  end
+
+  def role_name(user)
+    roles = [['Administrator', :admin],['Member', :member]]
+    if user.role.nil?
+      return nil
+    elsif user.role == 'admin'
+      'Administrator'
+    elsif user.role == 'member'
+      'Member'
+    else
+      user.role
     end
   end
 
@@ -130,6 +147,14 @@ module ApplicationHelper
       "Currently Attending"
     else
       date.strftime("%m/%d/%y")
+    end 
+  end
+
+  def time_format(time)
+    if time.nil?
+      "No time set"
+    else
+      time.strftime("%l:%M %p")
     end 
   end
 

@@ -29,7 +29,7 @@ class Dojo < ActiveRecord::Base
   end
 
 
-  def create_map_link(zoom=14,width=500,height=500)
+  def create_map_link(zoom=14,width=500,height=500) #THIS NEEDS A TEST?????????????????????????????????
     markers = ""
     markers += "&markers=color:red%7Ccolor:red%7Clabel:#{1}%7C#{self.latitude},#{self.longitude}"
     map = "http://maps.google.com/maps/api/staticmap?center= #{latitude},#{longitude}&zoom=#{zoom}&size=#{width}x#{height}&maptype=roadmap#{markers}&sensor=false"

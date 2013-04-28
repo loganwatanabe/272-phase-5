@@ -5,7 +5,7 @@ class DojosController < ApplicationController
 
   def show
     @dojo = Dojo.find(params[:id])
-    @current_students = @dojo.current_students#.paginate(:page => params[:page]).per_page(20)   This don't work cuz of the method
+    @current_students = @dojo.current_students#.paginate(:page => params[:page]).per_page(20)   #This don't work cuz of the method
     @dojo_students = DojoStudent.for_dojo(@dojo).by_student.paginate(:page => params[:page]).per_page(20) # this for_dojo needs to be tested!!!
   end
 

@@ -4,6 +4,10 @@ class UsersController < ApplicationController
     @student = Student.find(@user.student_id) unless @user.student.nil? #these are passed in, but only one
   end
 
+def index
+  @users = User.all
+end
+
 
   def edit
     @user = user.find(params[:id])
