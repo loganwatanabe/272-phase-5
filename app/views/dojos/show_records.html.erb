@@ -1,0 +1,33 @@
+<!--CURRENT STUDENTS LISTED-->
+		<p>
+		  <b>Student Records</b>
+		<table class="table table-striped">
+		  <tr>
+		    <th>Student</th>
+		    <th>Date Started</th>
+		    <th>Date Ended</th>
+		  </tr>
+
+		  <% @dojo_students.each do |ds| %>
+		    <tr>
+		      <td><%= link_to ds.student.name, student_path(ds.student) %></td>
+		      <td><%= date_format(ds.start_date) %></td>
+		      <td><%= date_format(ds.end_date) %></td>
+		    </tr>
+		      
+		  <% end %>
+		</table>
+
+		<span class="smtext">
+		<%= will_paginate @dojo_students, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+		</span>
+
+		</p>
+
+
+
+		<!--This is to ensure that pages with no content don't look bad, with the footer being all the way near the top -->
+		<% if @dojo_students.size == 0 %>
+		<h5>No students ever registered for this dojo</h5>
+		<br><br><br>
+		<% end %>

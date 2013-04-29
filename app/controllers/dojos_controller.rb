@@ -1,9 +1,16 @@
 class DojosController < ApplicationController
   def index
     @dojos = Dojo.alphabetical.paginate(:page => params[:page]).per_page(20)
+    @active_dojos = Dojo.alphabetical.active.paginate(:page => params[:page]).per_page(20)
+    @inactive_dojos = Dojo.alphabetical.inactive.paginate(:page => params[:page]).per_page(20)
   end
 
   def show
+    @dojo = Dojo.find(params[:id])
+    @current_students = @dojo.current_students #paginate(:page => params[:page]).per_page(20)   #This don't work cuz of the method
+  end
+
+  def show_records
     @dojo = Dojo.find(params[:id])
     @current_students = @dojo.current_students#.paginate(:page => params[:page]).per_page(20)   #This don't work cuz of the method
     @dojo_students = DojoStudent.for_dojo(@dojo).by_student.paginate(:page => params[:page]).per_page(20) # this for_dojo needs to be tested!!!
@@ -11,12 +18,14 @@ class DojosController < ApplicationController
 
   def new
     @dojo = Dojo.new
-    @STATES_LIST = ['AL','AK','AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT', 'VA', 'WA','WV','WI','WY']
+    @STATES_LIST = [['Alabama', 'AL'],['Alaska', 'AK'],['Arizona', 'AZ'],['Arkansas', 'AR'],['California', 'CA'],['Colorado', 'CO'],['Connectict', 'CT'],['Delaware', 'DE'],['District of Columbia ', 'DC'],['Florida', 'FL'],['Georgia', 'GA'],['Hawaii', 'HI'],['Idaho', 'ID'],['Illinois', 'IL'],['Indiana', 'IN'],['Iowa', 'IA'],['Kansas', 'KS'],['Kentucky', 'KY'],['Louisiana', 'LA'],['Maine', 'ME'],['Maryland', 'MD'],['Massachusetts', 'MA'],['Michigan', 'MI'],['Minnesota', 'MN'],['Mississippi', 'MS'],['Missouri', 'MO'],['Montana', 'MT'],['Nebraska', 'NE'],['Nevada', 'NV'],['New Hampshire', 'NH'],['New Jersey', 'NJ'],['New Mexico', 'NM'],['New York', 'NY'],['North Carolina','NC'],['North Dakota', 'ND'],['Ohio', 'OH'],['Oklahoma', 'OK'],['Oregon', 'OR'],['Pennsylvania', 'PA'],['Rhode Island', 'RI'],['South Carolina', 'SC'],['South Dakota', 'SD'],['Tennessee', 'TN'],['Texas', 'TX'],['Utah', 'UT'],['Vermont', 'VT'],['Virginia', 'VA'],['Washington', 'WA'],['West Virginia', 'WV'],['Wisconsin ', 'WI'],['Wyoming', 'WY']]
   
   end
 
   def edit
     @dojo = Dojo.find(params[:id])
+    @STATES_LIST = [['Alabama', 'AL'],['Alaska', 'AK'],['Arizona', 'AZ'],['Arkansas', 'AR'],['California', 'CA'],['Colorado', 'CO'],['Connectict', 'CT'],['Delaware', 'DE'],['District of Columbia ', 'DC'],['Florida', 'FL'],['Georgia', 'GA'],['Hawaii', 'HI'],['Idaho', 'ID'],['Illinois', 'IL'],['Indiana', 'IN'],['Iowa', 'IA'],['Kansas', 'KS'],['Kentucky', 'KY'],['Louisiana', 'LA'],['Maine', 'ME'],['Maryland', 'MD'],['Massachusetts', 'MA'],['Michigan', 'MI'],['Minnesota', 'MN'],['Mississippi', 'MS'],['Missouri', 'MO'],['Montana', 'MT'],['Nebraska', 'NE'],['Nevada', 'NV'],['New Hampshire', 'NH'],['New Jersey', 'NJ'],['New Mexico', 'NM'],['New York', 'NY'],['North Carolina','NC'],['North Dakota', 'ND'],['Ohio', 'OH'],['Oklahoma', 'OK'],['Oregon', 'OR'],['Pennsylvania', 'PA'],['Rhode Island', 'RI'],['South Carolina', 'SC'],['South Dakota', 'SD'],['Tennessee', 'TN'],['Texas', 'TX'],['Utah', 'UT'],['Vermont', 'VT'],['Virginia', 'VA'],['Washington', 'WA'],['West Virginia', 'WV'],['Wisconsin ', 'WI'],['Wyoming', 'WY']]
+  
   end
 
 
@@ -25,7 +34,7 @@ class DojosController < ApplicationController
   def create
     @dojo = Dojo.new(params[:dojo])
     if @dojo.save
-      flash[:notice] = "Successfully created #{@dojo.name}."
+      flash[:notice] = "Successfully created #{@dojo.name} dojo."
       redirect_to @dojo
     else
       render :action => 'new'
@@ -35,7 +44,7 @@ class DojosController < ApplicationController
   def update
     @dojo = Dojo.find(params[:id])
     if @dojo.update_attributes(params[:dojo])
-      flash[:notice] = "Successfully updated #{@dojo.name}."
+      flash[:notice] = "Successfully updated #{@dojo.name} dojo."
       redirect_to @dojo
     else
       render :action => 'edit'

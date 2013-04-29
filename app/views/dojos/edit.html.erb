@@ -4,7 +4,7 @@
      <%= f.input :name, :required => true %>
        <%= f.input :street, :required => true %>
        <%= f.input :city, :required => true %>
-       <%=f.input :state, :collection => @STATES_LIST %>
+       <%=f.input :state, :collection => @STATES_LIST.map{|k, v| v}, :label_method => lambda{|i| @STATES_LIST.rassoc(i).first} %>
        <%=f.input :zip%>
        <%=f.input :active%>
 
