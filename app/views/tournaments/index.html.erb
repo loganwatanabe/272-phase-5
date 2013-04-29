@@ -4,14 +4,14 @@
   <tr>
     <th>Name</th>
     <th>Date</th>
-    <th>Rank(s)</th>
+    <th>Ranks</th>
   </tr>
 
   <% @upcoming_tournaments.each do |tournament| %>
     <tr>
       <td><%= link_to tournament.name, tournament_path(tournament) %></td>
       <td><%= date_format(tournament.date) %></td>
-      <td><%= "#{rank_range_for(tournament)}" %></td>
+      <td><%= rank_range_for(tournament) %></td>
     </tr>
   <% end %>
 </table>

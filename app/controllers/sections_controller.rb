@@ -27,6 +27,7 @@ class SectionsController < ApplicationController
   def edit
     @section = Section.find(params[:id])
     @events = Event.active.alphabetical #need this so that the Events will be ordered in the form dropdown
+    @tournaments = Tournament.active.upcoming.alphabetical
   end
 
   

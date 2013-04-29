@@ -23,7 +23,11 @@
 
 <p>
   <b>Current Dojo:</b>
-  <%= link_to @student.current_dojo.name, dojo_path(@student.current_dojo) %>
+  <% if !@student.current_dojo.nil? %>
+    <%= link_to @student.current_dojo.name, dojo_path(@student.current_dojo) %>
+  <% else %>
+    Not currently enrolled in a dojo.
+  <% end %>
 </p>
 
 <p>
@@ -176,12 +180,12 @@ Student does not have a user account.
 </table>
 </p>
 <span class="smtext">
-<%= will_paginate @registrations, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+<%= will_paginate @dojo_students, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
 </span>
 
 <!--This is to ensure that pages with no content don't look bad, with the footer being all the way near the top -->
-<% if @registrations.size == 0 %>
-<h5>Not registered for any sections</h5>
+<% if @dojo_students.size == 0 %>
+<h5>No dojo records for this student</h5>
 <br><br><br>
 <% end %>
 

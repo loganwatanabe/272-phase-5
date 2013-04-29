@@ -97,6 +97,8 @@ class Section < ActiveRecord::Base
   end
   
   def min_rank_at_or_above_tourney_minimum
+    self.tournament.min_rank
+    self.min_rank
     if self.tournament.min_rank > self.min_rank
       errors.add(:min_rank, "must be at or above tournament minimum")
     else
