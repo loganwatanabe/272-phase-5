@@ -26,9 +26,9 @@ def create_students_and_dojos_context
   @jason = FactoryGirl.create(:student, first_name: "Jason", last_name: "Hoover", rank: 14, active: false, date_of_birth: 36.years.ago.to_date)
   
   @cmu = FactoryGirl.create(:dojo)
-  # sleep 1
+  sleep 1
   @north = FactoryGirl.create(:dojo, name: "North Side", street: "250 East Ohio St", city:"Pittsburgh", zip: "15212")
-  # sleep 1
+  sleep 1
   @sqhill = FactoryGirl.create(:dojo, name: "Squirrel Hill", street: "5738 Forbes Avenue", city:"Pittsburgh", zip: "15217", active: false)
 end
 
@@ -85,11 +85,18 @@ end
 
 Given /^an initial setup$/ do
   create_events_and_tournaments_context
+  create_students_and_dojos_context
   create_white_yellow_belt_context
 end
 
 Given /^red and white belt students$/ do
   create_events_and_tournaments_context
+  create_students_and_dojos_context
   create_white_yellow_belt_context
   create_red_belt_context
+end
+
+Given /^dojos and students$/ do
+  create_students_and_dojos_context
+  create_dojo_student_context
 end
