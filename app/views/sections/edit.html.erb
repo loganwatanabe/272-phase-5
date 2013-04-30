@@ -7,8 +7,8 @@
        <%= f.input :min_age, :required => true %>
         <%= f.input :max_age, :include_blank => true %>
 
-       <%= f.input :min_rank, :collection => (1..15), :label_method =>  lambda{|i| rank_name(i)}, :required => true %>
-        <%= f.input :max_rank, :collection => (1..15), :label_method =>  lambda{|i| rank_name(i)}, :include_blank => true %>
+       <%= f.input :min_rank, :collection => Student::RANKS %>
+       <%= f.input :max_rank, :collection => Student::RANKS, :include_blank => true %>
 
        <%= f.input :location, :include_blank => true %>
        <%= f.input :round_time, :include_blank => true %>

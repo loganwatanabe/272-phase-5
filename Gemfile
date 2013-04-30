@@ -7,6 +7,7 @@ gem 'validates_timeliness', '3.0.14'
 gem 'jquery-rails', '2.2.1'
 gem "bcrypt-ruby", :require => "bcrypt"
 gem 'simple_form', '2.0.4'
+gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
 gem 'geocoder', '1.1.6'
 
 # Gems used only in testing

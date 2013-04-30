@@ -1,2 +1,22 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+      <legend><%= controller.action_name.capitalize %> User profile</legend>
+      <div id="user_form">
+        
+        <%= simple_form_for @user do |user| %>
+                <%# user.link_to_remove(image_tag("/images/icons/close.gif", :border => 0)) %>
+
+                <%= user.association :student, :collection => Student.alphabetical %>
+                <%= user.input :email, :allow_blank => true %>
+                <%= user.input :password %>
+                <%= user.input :password_confirmation %>
+                <%= user.input :role, :collection => User::ROLES %>
+                <%= user.input :active %>
+
+
+                <%= user.submit 'Make Account', :class => 'btn btn-primary' %>
+        <% end %>
+        <p>
+          <%# project_form.link_to_add "Add Task", :tasks %>
+          <%# f.link_to_add(raw("<i class='icon-plus icon-white'></i> Add User profile"), :user, :class => 'btn btn-mini btn-primary') %>
+        </p>
+        
+      </div>

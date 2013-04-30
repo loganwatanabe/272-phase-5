@@ -1,11 +1,12 @@
 class Student < ActiveRecord::Base
-  attr_accessible :first_name, :last_name, :date_of_birth, :rank, :phone, :waiver_signed, :active
+  attr_accessible :first_name, :last_name, :date_of_birth, :rank, :phone, :waiver_signed, :active, :user_attributes
   
   # Constants
   RANKS = [['Tenth Gup', 1],['Ninth Gup', 2],['Eighth Gup', 3],['Seventh Gup', 4],['Sixth Gup', 5],
            ['Fifth Gup', 6],['Fourth Gup', 7],['Third Gup', 8],['Second Gup', 9],['First Gup', 10],
            ['First Dan', 11],['Second Dan', 12],['Third Dan', 13],['Fourth Dan', 14],['Senior Master', 15]]
   
+
   # Callbacks
   before_save :reformat_phone
   before_destroy :check_if_destroyable
@@ -19,6 +20,13 @@ class Student < ActiveRecord::Base
   has_many :dojo_students
   has_many :dojos, :through => :dojo_students
   
+  # Needed for nested form
+  accepts_nested_attributes_for :user, :reject_if => lambda { |user| user[:email].blank? }, :allow_destroy => true
+
+
+
+
+
   # Scopes
   scope :alphabetical, order('last_name, first_name')
   scope :by_rank, order('rank DESC')

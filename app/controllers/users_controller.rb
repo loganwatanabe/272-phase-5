@@ -10,11 +10,11 @@ end
 
 
   def edit
-    @user = user.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   def create
-    @user = user.new(params[:user])
+    @user = User.new(params[:user])
     if @user.save
       flash[:notice] = "Successfully created account for #{@user.student.name}."
       redirect_to :back  #I want to stay on the same student page, so the change can be reflected
@@ -24,7 +24,7 @@ end
   end
 
   def update
-    @user = user.find(params[:id])
+    @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:notice] = "Successfully updated account for #{@user.student.name}."
       redirect_to @user
@@ -35,7 +35,7 @@ end
 
   def destroy
     
-    @user = user.find(params[:id])
+    @user = User.find(params[:id])
 
     @user.destroy
     flash[:notice] = "Successfully destroyed user account for #{@user.student.name}."
