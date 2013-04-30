@@ -1,2 +1,59 @@
-<h1>DojoStudents#edit</h1>
-<p>Find me in app/views/dojo_students/edit.html.erb</p>
+<h1> Edit Dojo Records for Student</h1>
+
+<h3> Dojo Records for:</h3>
+<table class="table table-striped">
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Rank</th>
+      </tr>
+      <tr>
+        <td><%= link_to @student.name, student_path(@student) %></td>
+        <td><%= @student.age %></td>
+        <td><%= "#{rank_name(@student.rank)}" %></td>
+      </tr>
+    </table>
+
+
+<p>
+  <b>Dojo History:</b>
+  <table class="table table-striped">
+  <tr>
+    <th>Dojo</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th></th>
+    <th></th>
+  </tr>
+    <tr>
+
+
+  <% @dojo_students.each do |ds| %>
+      <%= simple_form_for ds, :html => { :class => 'form-horizontal' } do |f| %>
+          
+            <%= f.hidden_field :student_id, :value => ds.student.id %>
+            <td><%= f.association :dojo, :collection => Dojo.active.alphabetical, :label => false, :input_html => {:class => "dojo_box"} %></td>
+            <td><%= f.input :start_date, :label => false, :order => [:month, :day, :year], :input_html => {:class => "date_box"}%></td>
+            <td><%= f.input :end_date, :label => false, :order => [:month, :day, :year], :include_blank => true, :input_html => {:class => "date_box"} %></td>
+            <td><%= f.submit 'Update Record', :class => 'btn btn-mini btn-primary' %></td>
+
+            <td>
+        		<% if ds.end_date == nil %>
+            		<%= link_to 'End Record', dojo_student_path(ds), :confirm => 'End record?', :class => 'btn btn-mini btn-info ds_button' %>
+        		<% else %>
+            		<%= link_to 'Delete Record', dojo_student_path(ds), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger ds_button' %>
+       			 <% end %>
+    		</td>
+
+
+      <% end %>
+    </tr>
+
+  <% end %>
+</table>
+
+
+</p>
+<span class="smtext">
+<%= will_paginate @dojo_students, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>

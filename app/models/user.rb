@@ -12,7 +12,9 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format"
   validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
   validates_inclusion_of :role, :in => %w[admin member], :message => "is not recognized by the system"
-  validate :student_is_active_in_system, :on => :create
+
+  #commented out because profH said it messes up the nested forms
+  #validate :student_is_active_in_system, :on => :create
   
   # for use in authorizing with CanCan
   ROLES = [['Administrator', :admin],['Member', :member]]

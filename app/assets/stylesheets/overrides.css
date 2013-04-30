@@ -73,3 +73,23 @@ select.date {
 }
 
 
+
+.stu_add{
+     display: inline;
+}
+
+
+
+
+.dojo_box {
+     width : 100px;
+}
+
+.date_box {
+     width : 30px;
+}
+
+.ds_button {
+     width: 45px;
+}
+

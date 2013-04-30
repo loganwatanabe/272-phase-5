@@ -11,7 +11,7 @@ class StudentsController < ApplicationController
     @registrations = @student.registrations.by_event_name.paginate(:page => params[:page]).per_page(10)
     @user = @student.user unless @student.user.nil?
     @dojo_students = DojoStudent.for_student(@student).chronological.paginate(:page => params[:page]).per_page(20)
-    @dojo_student = @dojo_student = DojoStudent.new
+    @dojo_student = DojoStudent.new
   end
 
   def new

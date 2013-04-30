@@ -151,6 +151,9 @@ Student does not have a user account.
 
 
   <% @dojo_students.each do |ds| %>
+      <% if @dojo_students.size == 0 %>
+        <tr><td>No dojo records for this student</td></tr>
+      <% end %>
     <tr>
       <td><%= link_to ds.dojo.name, dojo_path(ds.dojo) %></td>
       <td><%= date_format(ds.start_date) %></td>
@@ -169,31 +172,36 @@ Student does not have a user account.
     </tr>
   <% end %>
 </table>
-
-      <!--Add a new Dojo record right now functionality-->
-          <%= simple_form_for @dojo_student, :html => { :class => 'form-horizontal' } do |f| %>
-          <fieldset>
-            <%= f.hidden_field :student_id, :value => @student.id %>
-            <%= f.hidden_field :start_date, :value => Date.current.to_date %>
-            <%= f.hidden_field :end_date, :value => nil %>
-            <%= f.association :dojo, :collection => Dojo.active.alphabetical, :label => (f.submit 'Add New Dojo', :class => 'btn btn-mini btn-success') %>
-          </fieldset>
-          <% end %>
-</p>
 <span class="smtext">
 <%= will_paginate @dojo_students, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
 </span>
 
 <!--This is to ensure that pages with no content don't look bad, with the footer being all the way near the top -->
-<% if @dojo_students.size == 0 %>
-<h5>No dojo records for this student</h5>
-<br><br><br>
-<% end %>
+    <% if @dojo_students.size == 0 %>
+      <h5>No dojo records for this student</h5>
+    <% end %>
+<table>
+<tr>
+      <!--Add a new Dojo record right now functionality-->
+          <%= simple_form_for @dojo_student, :html => { :class => 'form-search' } do |f| %>
+            <%= f.hidden_field :student_id, :value => @student.id %>
+            <%= f.hidden_field :start_date, :value => Date.current.to_date %>
+            <%= f.hidden_field :end_date, :value => nil %>
+             <td> <%= f.association :dojo, :collection => Dojo.active.alphabetical, :label => false %></td>
+              <td><%= f.submit 'Add New Dojo', :class => 'btn btn-mini btn-success'%></td>
+          <% end %>
+  </tr>
+</table>
+</p>
 
+
+          <% if @dojo_students.size>0 %>
+          <%= link_to 'Edit Records', edit_dojo_student_path(:student_id => @student.id), :class => 'btn btn-info' %>
+          <% end %>
 
 
 
 
 <div class="form-actions">
-  <%= link_to 'Back to Students', students_path, :class => 'btn btn' %><t>
+  <%= link_to 'Back to Students', students_path, :class => 'btn btn' %>
 </div>

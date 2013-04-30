@@ -6,7 +6,10 @@ class DojoStudentsController < ApplicationController
   end
 
   def edit
-    @dojo_student = DojoStudent.find(params[:id])
+    #@dojo_student = DojoStudent.new
+    student_id = params[:student_id] unless params[:student_id].nil?
+    @student = Student.find(student_id) unless student_id.nil?
+    @dojo_students = DojoStudent.for_student(@student).chronological.paginate(:page => params[:page]).per_page(20)
   end
 
   def end
