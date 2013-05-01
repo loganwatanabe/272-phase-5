@@ -26,6 +26,7 @@
     <th>Event</th>
     <th>Rank(s)</th>
     <th>Age(s)</th>
+    <th>Fee Paid?</th>
     <th></th>
   </tr>
 
@@ -37,6 +38,7 @@
 
 
       <% if registered?(@student, section) %>        <!--no button if they're already registered-->
+      <td><%= activity(Registration.find_by_section_id_and_student_id(section.id, @student.id).fee_paid) %></td>
       <td><a class="btn btn-mini disabled">Already Registered</a></td>
       <% else %>
       
@@ -47,6 +49,7 @@
             <%= f.hidden_field :section_id, :value => section.id %>
             <%= f.hidden_field :student_id, :value => @student.id %>
             <%= f.hidden_field :date, :value => Date.current.to_date %>
+            <td><%= f.input :fee_paid, :label => false %></td>
             <td><%= f.submit 'Register', :class => 'btn btn-mini btn-primary' %></td>
           </fieldset>
           <% end %>
@@ -92,6 +95,7 @@
     <th>Name</th>
     <th>Age</th>
     <th>Rank</th>
+    <th>Fee Paid?</th>
     <th></th>
   </tr>
 
@@ -103,6 +107,7 @@
       <td><%= "#{rank_name(student.rank)}" %></td>
 
       <% if registered?(student, @section) %>
+      <td><%= activity(Registration.find_by_section_id_and_student_id(@section.id, student.id).fee_paid) %></td>
       <td><div class="btn btn-mini disabled">Already Registered</div></td>  <!--no button if they're already registered-->
       <% else %>
 
@@ -114,6 +119,7 @@
         <%= f.hidden_field :section_id, :value => @section.id %>
         <%= f.hidden_field :student_id, :value => student.id %>
         <%= f.hidden_field :date, :value => Date.current.to_date %>
+        <td><%= f.input :fee_paid, :label => false %></td>
         <td><%= f.submit 'Register', :class => 'btn btn-mini btn-primary' %></td>
       </fieldset>
       <% end %>
