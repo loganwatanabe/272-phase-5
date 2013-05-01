@@ -90,6 +90,9 @@ select.date {
 }
 
 .ds_button {
-     width: 45px;
+     width: 30px;
 }
 
+.standing_box {
+     width : 60px;
+}

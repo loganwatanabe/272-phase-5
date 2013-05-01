@@ -24,7 +24,38 @@
 <!--This is to ensure that pages with no or little content don't look bad, with the footer being all the way near the top -->
 <% if @upcoming_tournaments.size == 0 %>
 <h5>No Upcoming Tournaments</h5>
-<br><br><br><br><br><br><br>
+<br><br><br>
 <% elsif @upcoming_tournaments.size<10 ; (10-@upcoming_tournaments.size).times do %>
+  <br>
+<% end; end %>
+
+
+<h2>Past Tournaments</h2>
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Date</th>
+    <th>Ranks</th>
+  </tr>
+
+  <% @past_tournaments.each do |tournament| %>
+    <tr>
+      <td><%= link_to tournament.name, tournament_path(tournament) %></td>
+      <td><%= date_format(tournament.date) %></td>
+      <td><%= rank_range_for(tournament) %></td>
+    </tr>
+  <% end %>
+</table>
+<span class="smtext">
+<%= will_paginate @upcoming_tournaments, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>
+
+
+
+<!--This is to ensure that pages with no or little content don't look bad, with the footer being all the way near the top -->
+<% if @past_tournaments.size == 0 %>
+<h5>No Past Tournaments</h5>
+<br><br><br>
+<% elsif @past_tournaments.size<10 ; (10-@past_tournaments.size).times do %>
   <br>
 <% end; end %>

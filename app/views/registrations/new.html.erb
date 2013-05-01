@@ -60,7 +60,7 @@
 <%= will_paginate eligible_sections_for_student(@student), :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
 </span>
 
-
+<%= link_to 'Back', student_path(@student), :class => 'btn' %>
 
 
 
@@ -126,6 +126,8 @@
 <span class="smtext">
 <%= will_paginate eligible_students_for_section(@section), :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
 </span>
+
+<%= link_to 'Back', section_path(@section), :class => 'btn' %>
 
 <% else %>
 

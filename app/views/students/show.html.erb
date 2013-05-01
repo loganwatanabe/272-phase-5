@@ -89,12 +89,12 @@ Student does not have a user account.
 
 
 
-<br><br>
+<br><br><br>
 
 
 
 <p>
-  <b>Tournament Activity:</b>
+  <h5>Tournament Activity:</h5>
   <table class="table table-striped">
   <tr>
     <th>Event</th>
@@ -116,7 +116,6 @@ Student does not have a user account.
       <td><%= reg.final_standing %></td>
 
       <td>
-        <a href="#" class="btn btn-small btn-info"><i class="icon-edit"></i></a>
         <%= link_to 'Delete Registration', registration_path(reg), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
       </td>
 
@@ -135,17 +134,20 @@ Student does not have a user account.
 <% end %>
 
 
+  <% if @registrations.size>0 %>
+  <%= link_to 'Edit Registrations', edit_registration_path(:student_id => @student.id, :section_id => nil), :class => 'btn btn-info' %>
+  <% end %>
 
 
 
+<br><br><br>
 <p>
-  <b>Dojo History:</b>
+  <h5>Dojo History:</h5>
   <table class="table table-striped">
   <tr>
     <th>Dojo</th>
     <th>Start Date</th>
     <th>End Date</th>
-    <th></th>
   </tr>
     <tr>
 
@@ -158,16 +160,6 @@ Student does not have a user account.
       <td><%= link_to ds.dojo.name, dojo_path(ds.dojo) %></td>
       <td><%= date_format(ds.start_date) %></td>
       <td><%= date_format(ds.end_date) %></td>
-
-      <td>
-        <a href="#" class="btn btn-small btn-info"><i class="icon-edit"></i></a>
-
-        <% if ds.end_date == nil %>
-            <%= link_to 'End Record', dojo_student_path(ds), :confirm => 'End record?', :class => 'btn btn-mini btn-info' %>
-        <% else %>
-            <%= link_to 'Delete Record', dojo_student_path(ds), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
-        <% end %>
-      </td>
 
     </tr>
   <% end %>
@@ -200,7 +192,7 @@ Student does not have a user account.
           <% end %>
 
 
-
+<br><br><br>
 
 <div class="form-actions">
   <%= link_to 'Back to Students', students_path, :class => 'btn btn' %>

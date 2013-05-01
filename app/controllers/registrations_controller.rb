@@ -26,7 +26,20 @@ class RegistrationsController < ApplicationController
 
 
   def edit
-    @registration = Registration.find(params[:id])  #should not be able to edit registrations anyways
+    student_id = params[:student_id] unless params[:student_id].nil?    #assigns foreign keys passed in
+    section_id = params[:section_id] unless params[:section_id].nil?
+
+    @student = Student.find(student_id) unless student_id.nil? #if student was passed in
+    @section = Section.find(section_id) unless section_id.nil? #if section was passed in
+
+    if !@student.nil?
+      @registrations = Registration.for_student(@student).paginate(:page => params[:page]).per_page(20)
+    elsif !@section.nil?
+      @registrations = Registration.for_section(@section).paginate(:page => params[:page]).per_page(20)
+    else
+      @registrations = nil
+    end
+
   end
 
   def create
@@ -43,14 +56,13 @@ class RegistrationsController < ApplicationController
     @registration = Registration.find(params[:id])
     if @registration.update_attributes(params[:registration])
       flash[:notice] = "Successfully updated registration for #{@registration.student.name} for section."
-      redirect_to @registration
+      redirect_to :back
     else
       render :action => 'edit'
     end
   end
 
   def destroy
-    
     @registration = Registration.find(params[:id])
 
     @registration.destroy

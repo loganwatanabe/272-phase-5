@@ -1,6 +1,159 @@
-You can't edit a registration!<br>
-Do or do not, there is no edit.<br>
-Seriously, though, think about it.  What would you want to edit with a registration?  The student or section? Just go make a new one for that.
-<br>
-I don't think you'd want to change the date, since the system takes care of it when all the registrations are recorded.
-<br>
+<h1>Edit Registrations</h1>
+
+  <h4> Registration for: </h4>
+<% if !@student.nil? %>  <!--     One big if/else statement based on what id was passed    -->
+
+  <!--  If the user came from a student's page to register that student  -->
+
+    <table class="table table-striped">
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Rank</th>
+      </tr>
+      <tr>
+        <td><%= link_to @student.name, student_path(@student) %></td>
+        <td><%= @student.age %></td>
+        <td><%= "#{rank_name(@student.rank)}" %></td>
+      </tr>
+    </table>
+
+
+
+<h6>Update Registration Information:</h6>
+  <table class="table table-striped">
+  <tr>
+    <th>Event</th>
+    <th>Rank(s)</th>
+    <th>Age(s)</th>
+    <th>Fee Paid?</th>
+    <th>Final Standing</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @registrations.each do |reg| %>
+    <tr>
+      <td><%= link_to reg.section.event.name, section_path(reg.section) %></td>
+      <td><%= rank_range(reg.section.min_rank, reg.section.max_rank) %></td>
+      <td><%= age_range(reg.section.min_age, reg.section.max_age) %></td>
+
+
+<!--   Passes hidden fields (stud/sec ids) into a (invisible) simple_form that is submitted by pressing "Register" to create new reg  -->
+
+      <%= simple_form_for reg, :html => { :class => 'form-horizontal' } do |f| %>
+      <fieldset>
+        <%= f.hidden_field :section_id %>
+        <%= f.hidden_field :student_id %>
+        <%= f.hidden_field :date %>
+        <td><%= f.input :fee_paid, :label => false %></td>
+        <td><%=  f.input :final_standing, :collection => (1..5), :label => false, :include_blank => true, :input_html => {:class => "standing_box"} %></td>
+        <td><%= f.submit 'Update', :class => 'btn btn-primary' %></td>
+        <td>
+        <%= link_to 'Delete Registration', registration_path(reg), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+      </td>
+      </fieldset>
+      <% end %>
+
+    </tr>
+  <% end %>
+</table>
+<span class="smtext">
+<%= will_paginate @registrations, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>
+
+<!--For no registrations-->
+<% if @registrations.size == 0 %>
+<h5>Not registered for any sections</h5>
+<br><br><br>
+<% end %>
+
+<%= link_to 'Back', student_path(@student), :class => 'btn' %>
+
+
+
+
+
+<!--  If the user came from a section page to register students for that section    -->
+<% elsif !@section.nil? %>
+
+  <h4>Section</h4>
+
+    <table class="table table-striped">
+    <tr>
+      <th>Event</th>
+      <th>Rank(s)</th>
+      <th>Age(s)</th>
+    </tr>
+    <tr>
+      <td><%= link_to @section.event.name, section_path(@section) %></td>
+      <td><%= rank_range(@section.min_rank, @section.max_rank) %></td>
+      <td><%= age_range(@section.min_age, @section.max_age) %></td>
+    </tr>
+  </table>
+
+
+    <h5>Select a student to register:</h5>
+
+  <table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Rank</th>
+    <th>Fee Paid?</th>
+    <th>Final Standing</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+
+  <% @registrations.each do |reg| %>
+    <tr>
+      <td><%= link_to reg.student.name, student_path(reg.student) %></td>
+      <td><%= reg.student.age %></td>
+      <td><%= "#{rank_name(reg.student.rank)}" %></td>
+
+
+<!--   Passes hidden fields (stud/sec ids) into a (invisible) simple_form that is submitted by pressing "Register" to create new reg  -->
+
+      <%= simple_form_for reg, :html => { :class => 'form-horizontal' } do |f| %>
+      <fieldset>
+        <%= f.hidden_field :section_id %>
+        <%= f.hidden_field :student_id %>
+        <%= f.hidden_field :date %>
+        <td><%= f.input :fee_paid, :label => false %></td>
+        <td><%=  f.input :final_standing, :collection => (1..5), :label => false, :include_blank => true, :input_html => {:class => "standing_box"} %></td>
+        <td><%= f.submit 'Update', :class => 'btn btn-primary' %></td>
+        <td>
+        <%= link_to 'Delete Registration', registration_path(reg), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+      </td>
+      </fieldset>
+      <% end %>
+
+    </tr>
+  <% end %>
+</table>
+<span class="smtext">
+<%= will_paginate @registrations, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>
+
+<!--For no registrations-->
+<% if @registrations.size == 0 %>
+<h5>Not registered for any sections</h5>
+<br><br><br>
+<% end %>
+
+
+
+
+<%= link_to 'Back', section_path(@section), :class => 'btn' %>
+
+<% else %>
+
+<!--  They shouldn't be able to get here. Unless they mess around with the routes.  Those sneaky bastards.   -->
+
+oop.  this is awkward...
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<% end %>

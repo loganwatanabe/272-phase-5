@@ -68,7 +68,11 @@
     <th>Rank</th>
     <th>Date Registered</th>
     <th>Fee Paid?</th>
+
+    <% if @section.tournament.date < Date.current.to_date %>
     <th>Final Standing</th>
+    <% end %>
+
     <th></th>
   </tr>
 
@@ -79,10 +83,12 @@
       <td><%= "#{rank_name(reg.student.rank)}" %></td>
       <td><%= reg.date.strftime("%m/%d/%y") %></td>
       <td><%= activity(reg.fee_paid) %></td>
+
+      <% if @section.tournament.date < Date.current.to_date %>
       <td><%= reg.final_standing %></td>
+      <% end %>
 
       <td>
-         <a href="#" class="btn btn-small btn-info"><i class="icon-edit"></i></a>
         <%= link_to 'Delete Registration', registration_path(reg), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
       </td>
       
@@ -101,6 +107,10 @@
 <h5>No registered students</h5>
 <br><br><br>
 <% end %>
+
+  <% if @registrations.size>0 %>
+  <%= link_to 'Edit Registrations', edit_registration_path(:section_id => @section.id, :student_id => nil), :class => 'btn btn-info' %>
+  <% end %>
 
 
 
