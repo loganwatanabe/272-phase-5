@@ -1,0 +1,15 @@
+
+<h1>A&M Karate School Tournament System</h1>
+
+<%= image_tag ("kkid.jpg"), :class=>"home-img img-polaroid"%>
+
+<h4>Welcome, MEMBER, to the A&M Karate School Tournament System.</h4>
+<h5>This system can keep track of tournaments, students, dojos, and participation in tournament sections. As a member, you can view dojos, tournaments, and sections by clicking the buttons below.</h5>
+
+<tr>
+	<td><%= link_to 'Dojos', dojos_path, :class => "btn btn-large btn-info" %></td>
+	<td><%= link_to 'Tournaments', tournaments_path, :class => "btn btn-large btn-info" %></td>
+	<td><%= link_to 'Sections', sections_path, :class => "btn btn-large btn-info" %></td>
+</tr>
+
+<h5>Below, you can see your student information, upcoming tournaments, sections you're registered for, and upcoming sections you can register for.</h5>

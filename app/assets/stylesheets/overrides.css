@@ -44,8 +44,8 @@ footer, #footer {
 
 #side_bar{
      padding-top: 10px;
-     padding-right: 45px;
-     padding-left: 45px;
+     padding-right: 25px;
+     padding-left: 25px;
      padding-bottom: 30px;
 
 }
@@ -55,8 +55,10 @@ footer, #footer {
 }
 
 .sidebar{
-     padding: 30px;
-
+     padding-top: 10px;
+     padding-right: 25px;
+     padding-left: 25px;
+     padding-bottom: 30px;
 }
 
 

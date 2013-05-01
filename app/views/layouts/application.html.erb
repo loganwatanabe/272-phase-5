@@ -21,7 +21,6 @@
             <li><%= link_to "Students", students_path %></li>
             <li><%= link_to "Sections", sections_path %></li>
             <li><%= link_to "Events", events_path %></li>            
-            <li><%= link_to "Registrations", registrations_path %></li>
             <li><%= link_to "Dojos", dojos_path %></li>
             <li><%= link_to "Tournaments", tournaments_path %></li>
           </ul>
@@ -45,7 +44,7 @@
          
       <div class="row">
         <!-- main content placed here-->
-          <div class="span4 bs-docs-sidebar">
+          <div class="span3 bs-docs-sidebar">
             <div class="sidebar">
               <%= link_to image_tag('rex2.jpg'), home_path %>
              <%= render :partial => "#{controller.controller_name}/sidebar" %>
