@@ -8,6 +8,7 @@ gem 'jquery-rails', '2.2.1'
 gem "bcrypt-ruby", :require => "bcrypt"
 gem 'simple_form', '2.0.4'
 gem 'cancan'
+gem 'chronic', '0.9.1'
 gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
 gem 'geocoder', '1.1.6'
 

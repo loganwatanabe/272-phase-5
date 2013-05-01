@@ -52,10 +52,13 @@
 
 <h5> Account Information </h5>
 <% if !@user.nil? %>
+
 <p>
   <b>Email:</b>
-  <%= @user.email %>
+  <%= @user.email %>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <%= link_to 'Delete Account', user_path(@user), :method => 'delete', :confirm => 'Delete user account?', :class => 'btn btn-mini btn-danger' %>
 </p>
+
 
 <p>
   <b>Role:</b>

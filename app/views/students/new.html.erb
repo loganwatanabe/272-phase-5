@@ -14,7 +14,6 @@
       <div id="user_form">
         
         <%= f.simple_fields_for :user do |user| %>
-                <%# user.link_to_remove(image_tag("/images/icons/close.gif", :border => 0)) %>
 
                 <%= user.hidden_field :student_id, :value => @student.id %>
                 <%= user.input :email, :allow_blank => true %>

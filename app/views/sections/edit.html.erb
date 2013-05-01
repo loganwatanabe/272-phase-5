@@ -11,7 +11,7 @@
        <%= f.input :max_rank, :collection => Student::RANKS, :include_blank => true %>
 
        <%= f.input :location, :include_blank => true %>
-       <%= f.input :round_time, :include_blank => true %>
+       <%= f.input :round_time, :include_blank => true, :ampm => true %>
 
      	 <%= f.input :active, :as => :radio_buttons %>
 
