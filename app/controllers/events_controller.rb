@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   
+before_filter :check_login
 
   def index
     @events = Event.alphabetical.paginate(:page => params[:page]).per_page(20)

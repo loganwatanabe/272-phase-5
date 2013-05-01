@@ -49,6 +49,11 @@ Karate67272::Application.routes.draw do
   match 'active_dojos' => 'dojos#active', :as => :active_dojos
   match 'inactive_dojos' => 'dojos#inactive', :as => :inactive_dojos
 
-  
+  #login routes
+  resources :sessions
+  #match 'user/edit' => 'users#edit', :as => :edit_current_user
+  #match 'signup' => 'users#new', :as => :signup
+  match 'logout' => 'sessions#destroy', :as => :logout
+  match 'login' => 'sessions#new', :as => :login
 end
 

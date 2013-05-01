@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+
+before_filter :check_login
+
   def new
     @user = User.new
     @student = Student.find(@user.student_id) unless @user.student.nil? #these are passed in, but only one

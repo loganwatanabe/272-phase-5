@@ -1,4 +1,7 @@
 class TournamentsController < ApplicationController
+
+  before_filter :check_login
+
   def index
     @tournaments = Tournament.chronological.paginate(:page => params[:page]).per_page(20)
     @upcoming_tournaments = Tournament.upcoming.chronological.paginate(:page => params[:page]).per_page(20)

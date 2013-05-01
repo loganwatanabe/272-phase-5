@@ -62,6 +62,35 @@ footer, #footer {
 }
 
 
+.nav_log {
+     float:right;
+     margin-left: 300px;
+     
+     /*gradient generated at http://gradients.glrzad.com*/
+     background-image: linear-gradient(bottom, rgb(0,0,0) 3%, rgb(252,255,255) 100%);
+     background-image: -o-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(252,255,255) 100%);
+     background-image: -moz-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(252,255,255) 100%);
+     background-image: -webkit-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(252,255,255) 100%);
+     background-image: -ms-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(252,255,255) 100%);
+
+     background-image: -webkit-gradient(
+          linear,
+          left bottom,
+          left top,
+          color-stop(0.03, rgb(0,0,0)),
+          color-stop(1, rgb(252,255,255))
+     );
+
+}
+
+
+
+
+
+
+
+
+
 select.date {
      width: 90px;
 }

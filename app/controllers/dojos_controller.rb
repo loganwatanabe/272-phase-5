@@ -1,4 +1,8 @@
 class DojosController < ApplicationController
+
+  before_filter :check_login, :only => [:edit, :update, :new, :create, :show_records, :destroy]
+
+
   def index
     @dojos = Dojo.alphabetical.paginate(:page => params[:page]).per_page(20)
     @active_dojos = Dojo.alphabetical.active.paginate(:page => params[:page]).per_page(20)

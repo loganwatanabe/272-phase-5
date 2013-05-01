@@ -1,5 +1,7 @@
 class DojoStudentsController < ApplicationController
 
+before_filter :check_login
+
   def new
     @dojo_student = DojoStudent.new
     @dojo_student.student_id = params[:student_id] unless params[:student_id].nil?
