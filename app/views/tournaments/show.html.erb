@@ -66,7 +66,13 @@
       <td><%= Student.registered_for_section(section).size %></td>
 
       <% if @tournament.date < Date.current.to_date %>	<!--assuming here that any tournament with a past date is completed-->
-      <td> <%= section_winner(section).name %> </td>
+      <td> 
+          <% if section_winner(section).nil? %>
+            Results not updated
+          <% else %>
+              <%= link_to section_winner(section).name,  student_path(section_winner(section))%> 
+          <% end %>
+      </td>
       <% end %>
       
     </tr>

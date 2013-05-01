@@ -79,7 +79,11 @@ module ApplicationHelper
   def section_winner(section)
     registrations = Registration.for_section(section)
     winner = registrations.select{|r| r.final_standing == 1}
-    winner.each{|r| return r.student} #returns a student
+    if winner.empty?
+      return nil
+    else
+      winner.each{|r| return r.student} #returns a student
+    end
   end
 
   def dojo_address(dojo)
