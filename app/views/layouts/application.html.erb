@@ -24,14 +24,14 @@
             <li><%= link_to "Dojos", dojos_path %></li>
             <li><%= link_to "Tournaments", tournaments_path %></li>
 
-              <li class="nav_log">
                 <% if logged_in? %>
-                  [<%= current_user.proper_name %>:<%= current_user.role %>]
-                  <%= link_to 'Logout', logout_path %>
+                <li class="nav_user">
+                <%= link_to "#{current_user.student.proper_name} : #{current_user.role}", student_path(current_user.student) %></li>
+                <li class="nav_logout"><%= link_to 'Logout', logout_path, :class => "no button" %></li>
                 <% else %>
-                  <%= link_to 'Login', login_path %>
+                <li class="nav_login">
+                  <%= link_to 'Login', login_path %></li>
                 <% end %>
-              </li>
 
           </ul>
           

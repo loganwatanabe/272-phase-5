@@ -61,11 +61,8 @@ footer, #footer {
      padding-bottom: 30px;
 }
 
-
-.nav_log {
-     float:right;
-     margin-left: 300px;
-     
+.nav_login {
+     margin-left: 225px;
      /*gradient generated at http://gradients.glrzad.com*/
      background-image: linear-gradient(bottom, rgb(0,0,0) 3%, rgb(252,255,255) 100%);
      background-image: -o-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(252,255,255) 100%);
@@ -84,6 +81,44 @@ footer, #footer {
 }
 
 
+.nav_user {
+     margin-left: 150px;
+
+     /*gradient generated at http://gradients.glrzad.com*/
+     background-image: linear-gradient(bottom, rgb(0,0,0) 3%, rgb(252,255,255) 100%);
+     background-image: -o-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(252,255,255) 100%);
+     background-image: -moz-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(252,255,255) 100%);
+     background-image: -webkit-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(252,255,255) 100%);
+     background-image: -ms-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(252,255,255) 100%);
+
+     background-image: -webkit-gradient(
+          linear,
+          left bottom,
+          left top,
+          color-stop(0.03, rgb(0,0,0)),
+          color-stop(1, rgb(252,255,255))
+     );
+
+}
+
+.nav_logout {
+
+     /*gradient generated at http://gradients.glrzad.com*/
+     background-image: linear-gradient(bottom, rgb(0,0,0) 3%, rgb(252,255,255) 100%);
+     background-image: -o-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(252,255,255) 100%);
+     background-image: -moz-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(252,255,255) 100%);
+     background-image: -webkit-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(252,255,255) 100%);
+     background-image: -ms-linear-gradient(bottom, rgb(0,0,0) 3%, rgb(252,255,255) 100%);
+
+     background-image: -webkit-gradient(
+          linear,
+          left bottom,
+          left top,
+          color-stop(0.03, rgb(0,0,0)),
+          color-stop(1, rgb(252,255,255))
+     );
+
+}
 
 
 
