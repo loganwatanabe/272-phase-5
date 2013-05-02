@@ -1,6 +1,7 @@
 class DojosController < ApplicationController
 
   before_filter :check_login, :only => [:edit, :update, :new, :create, :show_records, :destroy]
+  authorize_resource #?????
 
 
   def index
@@ -12,6 +13,7 @@ class DojosController < ApplicationController
   def show
     @dojo = Dojo.find(params[:id])
     @current_students = @dojo.current_students #paginate(:page => params[:page]).per_page(20)   #This don't work cuz of the method
+    # @current_students = Student.alphabetical.select{|s| s.current_dojo == @dojo}.paginate(:page => params[:page]).per_page(20)
   end
 
   def show_records

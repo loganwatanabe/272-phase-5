@@ -19,6 +19,7 @@ Karate67272::Application.routes.draw do
   match 'about' => 'home#about', :as => :about
   match 'contact' => 'home#contact', :as => :contact
   match 'privacy' => 'home#privacy', :as => :privacy
+  match 'error_page' => 'home#error_page', :as => :error_page
 
   #sets routes for student views
   match 'active_students' => 'students#active', :as => :active_students

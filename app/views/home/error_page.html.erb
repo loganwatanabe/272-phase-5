@@ -1,0 +1,8 @@
+<br><br><br><br><br><br>
+
+<% flash.each do |name, msg| %>
+          <h6><%= msg %></h6>
+<% end %>
+<h5>You reached this page in error.  Perhaps look above for a reason why.</h5>
+
+<%= link_to "Back", :back, :class => "btn" %>

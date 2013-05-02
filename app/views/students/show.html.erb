@@ -48,48 +48,60 @@
 
 <!--ACCOUNT INFORMATION -->
 
-<br>
+<% if can? :read, User %>
 
-<h5> Account Information </h5>
-<% if !@user.nil? %>
+  <br>
 
-<p>
-  <b>Email:</b>
-  <%= @user.email %>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <%= link_to 'Delete Account', user_path(@user), :method => 'delete', :confirm => 'Delete user account?', :class => 'btn btn-mini btn-danger' %>
-</p>
+  <h5> Account Information </h5>
+  <% if !@user.nil? %>
 
-
-<p>
-  <b>Role:</b>
-  <%= role_name(@user) %>
-</p>
-
-<p>
-  <b>Active:</b>
-  <%= activity(@user.active) %>
-</p>
+  <p>
+    <b>Email:</b>
+    <%= @user.email %>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <%= link_to 'Delete Account', user_path(@user), :method => 'delete', :confirm => 'Delete user account?', :class => 'btn btn-mini btn-danger' %>
+  </p>
 
 
+  <p>
+    <b>Role:</b>
+    <%= role_name(@user) %>
+  </p>
 
-<% else %>
-Student does not have a user account.
+  <p>
+    <b>Active:</b>
+    <%= activity(@user.active) %>
+  </p>
+
+
+
+  <% else %>
+  Student does not have a user account.
+  <% end %>
+
 <% end %>
 
-<br><br>
 
 
+<% if can? :update, Student %>
+     <br><br>
+    <p><!--Functionality buttons-->
+      <%= link_to 'Edit', edit_student_path(@student), :class => 'btn btn-info' %>
+<% end %>
 
-<p><!--Functionality buttons-->
-  <%= link_to 'Edit', edit_student_path(@student), :class => 'btn btn-info' %>
-  <% if @student.active %>
-    <%= link_to 'Register for Section', new_registration_path(:student_id => @student.id, :section_id => nil), :class => 'btn btn-primary' %>
-  <% else %>
-    <a href="#" class="btn disabled">Inactive students cannot register</a>
-  <% end %>
-  <%= link_to 'Delete Student', student_path(@student), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
-</p>
+<% if can? :create, Registration %>
 
+      <% if @student.active %>
+        <%= link_to 'Register for Section', new_registration_path(:student_id => @student.id, :section_id => nil), :class => 'btn btn-primary' %>
+      <% else %>
+        <a href="#" class="btn disabled">Inactive students cannot register</a>
+      <% end %>
+<% end %>
+
+
+<% if can? :destroy, Student %>
+      <%= link_to 'Delete Student', student_path(@student), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+    </p>
+<% end %>
 
 
 <br><br><br>
@@ -119,7 +131,10 @@ Student does not have a user account.
       <td><%= reg.final_standing %></td>
 
       <td>
+
+<% if can? :destroy, Registration %>
         <%= link_to 'Delete Registration', registration_path(reg), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+<% end %>
       </td>
 
     </tr>
@@ -137,10 +152,11 @@ Student does not have a user account.
 <% end %>
 
 
+<% if can? :update, Registration %>
   <% if @registrations.size>0 %>
   <%= link_to 'Edit Registrations', edit_registration_path(:student_id => @student.id, :section_id => nil), :class => 'btn btn-info' %>
   <% end %>
-
+<% end %>
 
 
 <br><br><br>
@@ -175,6 +191,9 @@ Student does not have a user account.
     <% if @dojo_students.size == 0 %>
       <h5>No dojo records for this student</h5>
     <% end %>
+
+
+<% if can? :create, DojoStudent %>
 <table>
 <tr>
       <!--Add a new Dojo record right now functionality-->
@@ -188,12 +207,14 @@ Student does not have a user account.
   </tr>
 </table>
 </p>
+<% end %>
 
 
+<% if can? :update, DojoStudent %>
           <% if @dojo_students.size>0 %>
           <%= link_to 'Edit Records', edit_dojo_student_path(:student_id => @student.id), :class => 'btn btn-info' %>
           <% end %>
-
+<% end %>
 
 <br><br><br>
 

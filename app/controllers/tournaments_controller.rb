@@ -1,6 +1,7 @@
 class TournamentsController < ApplicationController
 
   before_filter :check_login
+  authorize_resource #????????????????????????
 
   def index
     @tournaments = Tournament.chronological.paginate(:page => params[:page]).per_page(20)

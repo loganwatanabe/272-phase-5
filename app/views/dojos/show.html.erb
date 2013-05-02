@@ -31,22 +31,24 @@
 
 <br><br>
 
-
-<p><!--Functionality buttons-->
-  <%= link_to 'Edit', edit_dojo_path(@dojo), :class => 'btn btn-info' %>
-  <% if @dojo.active %>
-    <%= link_to 'Add Student to Dojo', new_dojo_student_path(:dojo_id => @dojo.id), :class => 'btn btn-primary' %>
-  <% else %>
-    <a href="#" class="btn disabled">Inactive dojos cannot have students</a>
-  <% end %>
-  <%= link_to 'Delete dojo', dojo_path(@dojo), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
-</p>
-
+<% if can? :manage, Dojo %>
+	<p><!--Functionality buttons-->
+	  <%= link_to 'Edit', edit_dojo_path(@dojo), :class => 'btn btn-info' %>
+	  <% if @dojo.active %>
+	    <%= link_to 'Add Student to Dojo', new_dojo_student_path(:dojo_id => @dojo.id), :class => 'btn btn-primary' %>
+	  <% else %>
+	    <a href="#" class="btn disabled">Inactive dojos cannot have students</a>
+	  <% end %>
+	  <%= link_to 'Delete dojo', dojo_path(@dojo), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+	</p>
+<% end %>
 
 
 <br><br>
 
-
+<% if current_user.nil? %>
+	Visit this Dojo to sign up for KARATE!!!!
+<% elsif current_user.student.current_dojo == @dojo %>
 <!--CURRENT STUDENTS LISTED-->
 		<p>
 		  <b>Current Members:</b>
@@ -81,6 +83,7 @@
 		<br><br><br>
 		<% end %>
 
+<% end %>
 
 
 

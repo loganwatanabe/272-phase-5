@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+	rescue_from CanCan::AccessDenied do |exception|
+	  flash[:error] = "You are not authorized to access that page"
+	  redirect_to :error_page
+	end
 
 	private #methods for user authorization
 		def current_user

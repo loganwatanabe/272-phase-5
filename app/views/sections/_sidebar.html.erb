@@ -2,7 +2,10 @@
   <div id="side_bar" class="well">
    	<h4>Section Links</h4>
    	<div class="btn-group btn-group-vertical side_list">
+
+		<% if can? :create, Section %>
 		<%= link_to 'Create New Section', new_section_path, :class => "btn btn-info side_btn" %>
+		<% end %>
 		<%= link_to 'All Sections', sections_path, :class => "btn side_btn" %>
 		<%= link_to 'Active Sections', active_sections_path, :class => "btn side_btn" %>
 		<%= link_to 'Inactive Sections', inactive_sections_path, :class => "btn side_btn" %>

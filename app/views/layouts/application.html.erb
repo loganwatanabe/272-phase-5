@@ -18,11 +18,11 @@
         <div class="container">
           <a class="brand" href=<%= home_path%>>A &amp; M Karate Tournament System</a>
           <ul class="nav">
-            <li><%= link_to "Students", students_path %></li>
-            <li><%= link_to "Sections", sections_path %></li>
-            <li><%= link_to "Events", events_path %></li>            
-            <li><%= link_to "Dojos", dojos_path %></li>
-            <li><%= link_to "Tournaments", tournaments_path %></li>
+                                            <li><%= link_to "Dojos", dojos_path %></li>
+            <% if can? :read, Student %>   <li><%= link_to "Students", students_path %></li><% end %>
+            <% if can? :read, Tournament %> <li><%= link_to "Tournaments", tournaments_path %></li><% end %>
+            <% if can? :read, Section %>   <li><%= link_to "Sections", sections_path %></li><% end %>
+            <% if can? :read, Event %>      <li><%= link_to "Events", events_path %></li><% end %>        
 
                 <% if logged_in? %>
                 <li class="nav_user">

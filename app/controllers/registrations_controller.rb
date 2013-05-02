@@ -1,6 +1,7 @@
 class RegistrationsController < ApplicationController
 
   before_filter :check_login
+  authorize_resource
   
   def index
     @registrations = Registration.by_date

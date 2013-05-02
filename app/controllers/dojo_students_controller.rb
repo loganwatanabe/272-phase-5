@@ -1,6 +1,7 @@
 class DojoStudentsController < ApplicationController
 
 before_filter :check_login
+authorize_resource
 
   def new
     @dojo_student = DojoStudent.new

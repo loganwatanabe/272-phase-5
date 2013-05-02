@@ -42,17 +42,17 @@
 <br><br>
 
 
-
-<p><!--Functionality buttons-->
-  <%= link_to 'Edit', edit_section_path(@section), :class => 'btn btn-info' %>
-  <% if @section.active %>
-    <%= link_to 'Register a Student', new_registration_path(:student_id => nil, :section_id => @section.id), :class => 'btn btn-primary' %>
-  <% else %>
-    <a href="#" class="btn disabled">Inactive sections cannot register</a>
-  <% end %>
-  <%= link_to 'Delete Section', section_path(@section), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
-</p>
-
+<% if can? :manage, Section %>
+  <p><!--Functionality buttons-->
+    <%= link_to 'Edit', edit_section_path(@section), :class => 'btn btn-info' %>
+    <% if @section.active %>
+      <%= link_to 'Register a Student', new_registration_path(:student_id => nil, :section_id => @section.id), :class => 'btn btn-primary' %>
+    <% else %>
+      <a href="#" class="btn disabled">Inactive sections cannot register</a>
+    <% end %>
+    <%= link_to 'Delete Section', section_path(@section), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+  </p>
+<% end %>
 
 
 <br><br>
