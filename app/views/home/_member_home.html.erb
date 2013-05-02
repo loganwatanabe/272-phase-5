@@ -18,9 +18,14 @@
 
 <div class = "span2">
 	<fieldset class = "dash_box">
-		Student Information
+		<table>
+			<tr><th>Your Information</th></tr>
+			<tr><td>Name: <%= current_user.student.name %></td></tr>
+			<tr><td>Rank: <%= rank_name(current_user.student.rank) %></td></tr>
+			<tr><td>Current Dojo: <%= current_user.student.current_dojo.name %></td></tr>
+			<tr><td><%= link_to 'My Info', student_path(current_user.student), :class => "btn btn-info"%></td></tr>
 
-
+		</table>
 	</fieldset>
 
 </div>
