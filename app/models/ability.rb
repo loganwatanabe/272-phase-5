@@ -11,20 +11,15 @@ class Ability
 
 
     elsif user.role? :member
-      can :read, Tournament
       can :read, Dojo
-      can :read, DojoStudent do |ds|
-        ds.dojo_id == user.student.current_dojo.id
-     end
-      can :show, Student do |s|
+
+      can [:show,:edit, :update], Student do |s|
         user.student_id == s.id
         end
+
       can :update, User do |u|
         user.id == u.id
       end
-      # can :read, Student do|s| user.student == s}
-      # can :update, Student {|s| user.student == s}
-      # can :update, User {|u| user == u}
       
     else
       can :read, Dojo
