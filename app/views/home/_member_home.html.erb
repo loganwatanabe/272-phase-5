@@ -3,36 +3,34 @@
 
 <%= image_tag ("kkid.jpg"), :class=>"home-img img-polaroid"%>
 
-<h4>Welcome, MEMBER, to the A&M Karate School Tournament System.</h4>
-<h5>This system can keep track of tournaments, students, dojos, and participation in tournament sections. As a member, you can view dojos or your own personal information by clicking the buttons below.</h5>
-
-<tr>
-	<td><%= link_to 'Dojos', dojos_path, :class => "btn btn-large btn-info" %></td>
-	<td><%= link_to 'My Info', student_path(current_user.student), :class => "btn btn-large btn-info" %></td>
-</tr>
-
-<h5>Below, you can see your student information, upcoming tournaments, sections you're registered for, and upcoming sections you can register for.</h5>
+<h4>Welcome, <%= current_user.student.first_name %>, to the A&M Karate School Tournament System.</h4>
+<h6>This system can keep track of tournaments, students, dojos, and participation in tournament sections. 
+	<br>As a member, you can view dojos or your own personal information through the buttons below.
+	<br>Use the dashboard below to see upcoming tournaments, sections you're registered for, and upcoming sections you can register for.</h6>
 
 <div class = "row" >
 
 <div class = "span2">
 	<fieldset class = "dash_box well">
-		<table class = "grey-background">
-			<tr><th>Your Information</th></tr>
-			<tr><td>Name: <%= current_user.student.name %></td></tr>
-			<tr><td>Rank: <%= rank_name(current_user.student.rank) %></td></tr>
-			<tr><td>Current Dojo: <%= if @student.current_dojo.nil? then "None" else current_user.student.current_dojo.name end %></td></tr>
+		<table class = "grey-background text_left">
+			<tr><th><h5>Your Information</h5></th></tr>
+			<tr><td><b>Name:</b> <%= current_user.student.name %></td></tr>
+			<tr><td><b>Rank:</b> <%= rank_name(current_user.student.rank) %></td></tr>
+			<tr><td><b>Dojo:</b> <%= if @student.current_dojo.nil? then "None" else current_user.student.current_dojo.name end %></td></tr>
 			<tr><td><%= link_to 'My Info', student_path(current_user.student), :class => "btn btn-info"%></td></tr>
 
 		</table>
 	</fieldset>
-
+	<br>
+	<%= link_to 'Dojos', dojos_path, :class => "btn btn-large btn-info" %>
 </div>
+
+
 <div class = "span6">
 	<fieldset class = "dash_box well">
-		<table class = "grey-background span6">
-			<tr><th colspan="3">Upcoming Tournaments</th></tr>
-			<tr><th>Name</th><th>Date</th><th>Ranks</th></tr>
+		<table class = "grey-background span6 dash_table">
+			<tr><th colspan="3"><h5>Upcoming Tournaments</h5></th></tr>
+			<h6><tr><th>Name</th><th>Date</th><th>Ranks</th></tr></h6>
 			<% @upcoming_tournaments.each do |t| %>
 			<tr><td><%= t.name %></td>
 			<td><%= date_format(t.date) %></td>
@@ -45,11 +43,13 @@
 		</table>
 	</fieldset>
 </div>
+
+
 <div class = "span6">
 	<fieldset class = "dash_box well">
-		<table class = "grey-background span6">
-			<tr><th colspan="3">Your Upcoming Sections</th></tr>
-			<tr><th>Event</th><th>Date</th><th>Location</th></tr>
+		<table class = "grey-background span6 dash_table">
+			<tr><th colspan="3"><h5>Your Upcoming Sections</h5></th></tr>
+			<h6><tr><th>Event</th><th>Date</th><th>Location</th></tr></h6>
 			<% @up_reg_sections.each do |s| %>
 			<tr><td><%= s.event.name %></td>
 			<td><%= date_format(s.tournament.date) %></td>
@@ -66,9 +66,9 @@
 </div>
 <div class = "span6 offset2">
 	<fieldset class = "dash_box well">
-		<table class = "grey-background span6">
-			<tr><th colspan="4">Upcoming Sections You are Eligible For</th></tr>
-			<tr><th>Event</th><th>Date</th><th>Ranks</th><th>Ages</th></tr>
+		<table class = "grey-background span6 dash_table">
+			<tr><th colspan="4"><h5>Upcoming Sections You are Eligible For</h5></th></tr>
+			<h6><tr><th>Event</th><th>Date</th><th>Ranks</th><th>Ages</th></tr></h6>
 			<% @eligible_sec.each do |s| %>
 				<tr><td><%= s.event.name %></td>
 				<td><%= date_format(s.tournament.date) %></td>

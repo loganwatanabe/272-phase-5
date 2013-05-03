@@ -16,7 +16,7 @@ class HomeController < ApplicationController
 
         student_sections=Registration.for_student(@student).map{|i| i.section}
 
-        all_eli = Section.for_rank(@student.rank).for_age(@student.age).active.alphabetical.select{|s| student_sections.include?(s) and (s.active == true)}
+        all_eli = Section.for_rank(@student.rank).for_age(@student.age).active.alphabetical.select{|s| !student_sections.include?(s) and (s.active == true) and s.tournament.date >= Date.current.to_date}
       @eligible_sec = all_eli.sort_by{|s| s.tournament.date}.take(5)
 
       #for admins
