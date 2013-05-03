@@ -7,6 +7,7 @@
 		<%= link_to 'Create New Student', new_student_path, :class => "btn btn-info side_btn" %>
 		<% end %>
 
+		<% if can? :index, Student%>
 		<%= link_to 'All Students', students_path, :class => "btn side_btn" %>
 		<%= link_to 'Active', active_students_path, :class => "btn side_btn" %>
 		<%= link_to 'Inactive', inactive_students_path, :class => "btn side_btn" %>
@@ -16,6 +17,9 @@
 		<%= link_to 'Seniors', seniors_students_path, :class => "btn side_btn" %>
 		<%= link_to 'Gups', gups_students_path, :class => "btn side_btn" %>
 		<%= link_to 'Dans', dans_students_path, :class => "btn side_btn" %>
-		
+		<% else %>
+			<h6>No links here for members</h6>
+		<% end %>
+
 	</div>
   </div>

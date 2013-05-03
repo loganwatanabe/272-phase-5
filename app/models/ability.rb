@@ -11,7 +11,7 @@ class Ability
 
 
     elsif user.role? :member
-      can :read, Dojo
+      can [:read, :active, :inactive], Dojo
 
       can :show, Student do |student|
         student.id == user.student_id
@@ -30,7 +30,7 @@ class Ability
       end
       
     else
-      can :read, Dojo
+      can [:read, :active, :inactive], Dojo
  
     end
 

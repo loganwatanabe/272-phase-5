@@ -220,6 +220,8 @@
 
 <br><br><br>
 
+<% if can? :index, Student%>
 <div class="form-actions">
   <%= link_to 'Back to Students', students_path, :class => 'btn btn' %>
 </div>
+<% end %>
