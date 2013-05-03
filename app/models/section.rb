@@ -46,6 +46,19 @@ class Section < ActiveRecord::Base
     self.active = true
     self.save!
   end
+
+  def updated?
+    if self.registrations.empty?
+      return nil
+    end
+    
+     self.registrations.each do |r|   #so here I go through all the registrations in a section
+          if !r.final_standing.nil?  #if a registration has a final standing
+            return true             #it does not need to be updated
+          end
+        end
+    return false
+  end
   
   # Callbacks
   before_destroy :check_if_destroyable

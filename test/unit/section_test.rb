@@ -222,6 +222,44 @@ class SectionTest < ActiveSupport::TestCase
       assert @bl_belt_breaking.destroyed?
     end
     
+    should "have a method to show if registrations have standings" do
+      ed = FactoryGirl.create(:student)
+      ted = FactoryGirl.create(:student, first_name: "Ted")
+      reg_ed_sp = FactoryGirl.create(:registration, student: ed, section: @wy_belt_sparring, :final_standing => 1)
+      reg_ted_sp = FactoryGirl.create(:registration, student: ted, section: @wy_belt_sparring, :final_standing => 1)
+      assert_equal 2, @wy_belt_sparring.registrations.size  # just to show nothing is there to start
+
+      assert_equal true, @wy_belt_sparring.updated? #registrations are good
+
+      reg_ed_sp.final_standing = nil
+      reg_ted_sp.final_standing = nil
+
+      ed.delete
+      ted.delete
+      reg_ed_sp.delete
+      reg_ted_sp.delete
+    end
+
+    should "have a method to show if registrations do not have standings" do
+      ed = FactoryGirl.create(:student)
+      ted = FactoryGirl.create(:student, first_name: "Ted")
+      reg_ed_sp = FactoryGirl.create(:registration, student: ed, section: @wy_belt_sparring, :final_standing => nil)
+      reg_ted_sp = FactoryGirl.create(:registration, student: ted, section: @wy_belt_sparring, :final_standing => nil)
+      assert_equal 2, @wy_belt_sparring.registrations.size  # just to show nothing is there to start
+
+      assert_equal false, @wy_belt_sparring.updated? #registrations are good
+
+      reg_ed_sp.final_standing = nil
+      reg_ted_sp.final_standing = nil
+
+      ed.delete
+      ted.delete
+      reg_ed_sp.delete
+      reg_ted_sp.delete
+    end
+
+
+
     should "make sections with registrations to be inactive" do
       ed = FactoryGirl.create(:student)
       ted = FactoryGirl.create(:student, first_name: "Ted")

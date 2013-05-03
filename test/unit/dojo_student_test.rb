@@ -87,6 +87,18 @@ class DojoStudentTest < ActiveSupport::TestCase
     should "have a scope to find all current assignments" do
       assert_equal [["Ted", "North Side", "#{1.year.ago.to_date.to_s}"],["Fred", "North Side", "#{2.years.ago.to_date.to_s}"],["Noah", "CMU", "#{1.year.ago.to_date.to_s}"]], DojoStudent.current.map{|ds| [ds.student.first_name, ds.dojo.name, ds.start_date.to_s]}
     end
+
+
+    should "have a scope to return all assignments for a student" do
+      assert_equal [[@ted, @cmu],[@ted, @north]], DojoStudent.for_student(@ted).by_dojo.map{|ds| [ds.student, ds.dojo]}
+      assert_equal [[@ed, @north]], DojoStudent.for_student(@ed).by_dojo.map{|ds| [ds.student, ds.dojo]}
+    end
+
+    should "have a scope to return all assignments for a dojo" do
+      assert_equal 2, DojoStudent.for_dojo(@cmu).size
+      assert_equal 3, DojoStudent.for_dojo(@north).size
+    end
+
     
     should "end current assignment (if exists) before assigning a new dojo to a student" do
       move_ted_to_cmu = FactoryGirl.create(:dojo_student, student: @ted, dojo: @cmu, start_date: Date.today, end_date: nil)

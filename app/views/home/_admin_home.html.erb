@@ -46,3 +46,123 @@ Sections you can Register for
 
 
 </div>
+
+
+<div class = "row" >
+
+<div class = "span2">
+	<fieldset class = "dash_box well">
+		<table class = "grey-background">
+			<tr><th>Your Information</th></tr>
+			<tr><td>Name: <%= current_user.student.name %></td></tr>
+			<tr><td>Rank: <%= rank_name(current_user.student.rank) %></td></tr>
+			<tr><td>Current Dojo: <%= if @student.current_dojo.nil? then "None" else current_user.student.current_dojo.name end %></td></tr>
+			<tr><td><%= link_to 'My Info', student_path(current_user.student), :class => "btn btn-info"%></td></tr>
+
+		</table>
+	</fieldset>
+
+</div>
+<div class = "span6">
+	<fieldset class = "dash_box well">
+		<table class = "grey-background span6">
+			<tr><th colspan="3">Upcoming Tournaments</th></tr>
+			<tr><th>Name</th><th>Date</th><th>Ranks</th></tr>
+			<% @upcoming_tournaments.each do |t| %>
+			<tr><td><%= t.name %></td>
+			<td><%= date_format(t.date) %></td>
+			<td><%= rank_range_for(t)%></td></tr>
+			<% end %>
+				<% if @upcoming_tournaments.empty? %>
+				<tr><td colspan="3">There are no upcoming tournaments.</td></tr>
+				<% end %>
+
+		</table>
+	</fieldset>
+</div>
+<div class = "span6">
+	<fieldset class = "dash_box well">
+		<table class = "grey-background span6">
+			<tr><th colspan="3">Recent Registrations</th></tr>
+			<tr><th>Student</th><th>Event</th><th>Date Registered</th></tr>
+			<% @recent_regs.each do |r| %>
+			<tr><td><%= link_to r.student.name, student_path(r.student) %></td>
+			<td><%= link_to r.section.event.name, section_path(r.section) %></td>
+			<td><%= date_format(r.date) %></td></tr>
+			<% end %>
+			<% if @recent_regs.empty? %>
+				<tr><td colspan="3">No registrations.</td></tr>
+				<% end %>
+
+		</table>
+	</fieldset>
+
+
+</div>
+<div class = "span6 offset2">
+	<fieldset class = "dash_box well">
+		<table class = "grey-background span6">
+			<tr><th colspan="4">Recent Dojo Assignments</th></tr>
+			<tr><th>Student</th><th>Dojo</th><th>Start</th><th>End</th></tr>
+			<% @recent_ds.each do |ds| %>
+				<tr><td><%= link_to ds.student.name, student_path(ds.student) %></td>
+				<td><%= link_to ds.dojo.name, dojo_path(ds.dojo) %></td>
+				<td><%= date_format(ds.start_date) %></td>
+				<td><%= date_format(ds.end_date) %></td>
+				</tr>
+			<% end %>
+			<% if @eligible_sec.empty? %>
+				<tr><td colspan="4">You are not eligible for any upcoming sections.</td></tr>
+				<% end %>
+
+		</table>
+	</fieldset>
+
+
+</div>
+
+<div class = "span6 offset2">
+	<fieldset class = "dash_box well">
+		<table class = "grey-background span6">
+			<tr><th colspan="3">Sections that need standings updated</th></tr>
+			<tr><th>Event</th><th>Registrants</th><th>Date</th></tr>
+			<% @not_updated_sections.each do |s| %>
+				<tr><td><%= link_to s.event.name, section_path(s) %></td>
+				<td><%= Student.registered_for_section(s).size %></td>
+				<td><%= date_format(s.tournament.date) %></td>
+				</tr>
+			<% end %>
+			<% if @not_updated_sections.empty? %>
+				<tr><td colspan="3">All sections up to date.</td></tr>
+				<% end %>
+
+		</table>
+	</fieldset>
+
+
+</div>
+
+<div class = "span6 offset2">
+	<fieldset class = "dash_box well">
+		<table class = "grey-background span6">
+			<tr><th colspan="4">Recently updated sections</th></tr>
+			<tr><th>Event</th><th>Registrants</th><th>Date</th><th>Winner</th></tr>
+			<% @updated_sections.each do |s| %>
+				<tr><td><%= link_to s.event.name, section_path(s) %></td>
+				<td><%= Student.registered_for_section(s).size %></td>
+				<td><%= date_format(s.tournament.date) %></td>
+				<td><%= link_to section_winner(s).name, student_path(section_winner(s)) %></td>
+				</tr>
+			<% end %>
+			<% if @updated_sections.empty? %>
+				<tr><td colspan="4">No updated sections.</td></tr>
+				<% end %>
+
+		</table>
+	</fieldset>
+
+
+</div>
+
+
+</div>

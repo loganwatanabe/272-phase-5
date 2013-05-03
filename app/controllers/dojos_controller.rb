@@ -1,7 +1,7 @@
 class DojosController < ApplicationController
 
   before_filter :check_login, :only => [:edit, :update, :new, :create, :show_records, :destroy]
-  authorize_resource #?????
+  authorize_resource
 
 
   def index
