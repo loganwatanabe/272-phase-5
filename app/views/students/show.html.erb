@@ -48,7 +48,7 @@
 
 <!--ACCOUNT INFORMATION -->
 
-<% if can? :read, User %>
+<% if can? :show, Student %>
 
   <br>
 
@@ -58,7 +58,9 @@
   <p>
     <b>Email:</b>
     <%= @user.email %>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <% if can? :manage, User%>
     <%= link_to 'Delete Account', user_path(@user), :method => 'delete', :confirm => 'Delete user account?', :class => 'btn btn-mini btn-danger' %>
+    <% end %>
   </p>
 
 

@@ -4,7 +4,9 @@
      <%= f.input :first_name %>
      <%= f.input :last_name %>
        <%= f.input :date_of_birth, :as => :date, :order => [:month, :day, :year], :start_year => Date.today.year - 120, :end_year => Date.today.year - 5, :use_month_numbers => false, :include_blank => true %>
+       <% if current_user.role?(:admin)%>
        <%=f.input :rank, :collection => (1..15), :label_method =>  lambda{|i| rank_name(i)} %>
+       <% end %>
        <%=f.input :phone%>
        <%=f.input :waiver_signed%>
        <%=f.input :active%>
@@ -20,7 +22,9 @@
                 <%= user.input :email, :allow_blank => true %>
                 <%= user.input :password %>
                 <%= user.input :password_confirmation %>
+                <% if current_user.role?(:admin)%>
                 <%= user.input :role, :collection => User::ROLES %>
+                <% end %>
                 <%= user.input :active %>
                 
         <% end %>

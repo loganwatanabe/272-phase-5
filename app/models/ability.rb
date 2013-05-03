@@ -13,12 +13,20 @@ class Ability
     elsif user.role? :member
       can :read, Dojo
 
-      can [:show,:edit, :update], Student do |s|
-        user.student_id == s.id
+      can :show, Student do |student|
+        student.id == user.student_id
+        end
+      can :edit, Student do |student|
+        student.id == user.student_id
         end
 
+      can :update, Student do |student|
+        student.id == user.student_id
+        end
+
+
       can :update, User do |u|
-        user.id == u.id
+        u.id == user.id
       end
       
     else
