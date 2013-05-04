@@ -48,15 +48,17 @@
 <div class = "span6">
 	<fieldset class = "dash_box well">
 		<table class = "grey-background span6 dash_table">
-			<tr><th colspan="3"><h5>Your Upcoming Sections</h5></th></tr>
-			<h6><tr><th>Event</th><th>Date</th><th>Location</th></tr></h6>
+			<tr><th colspan="5"><h5>Your Upcoming Sections</h5></th></tr>
+			<h6><tr><th>Event</th><th>Tournament</th><th>Date</th><th>Round Time</th><th>Location</th></tr></h6>
 			<% @up_reg_sections.each do |s| %>
 			<tr><td><%= s.event.name %></td>
+			<td><%= s.tournament.name %></td>
 			<td><%= date_format(s.tournament.date) %></td>
-			<td><%= s.location %></td>
+			<td><%= time_format(s.round_time) %></td>
+			<td><%= if s.location.nil? then "No location set" else s.location end %></td>
 			<% end %>
 			<% if @up_reg_sections.empty? %>
-				<tr><td colspan="3">You have no upcoming sections registered.</td></tr>
+				<tr><td colspan="5">You have no upcoming sections registered.</td></tr>
 				<% end %>
 
 		</table>
@@ -67,17 +69,18 @@
 <div class = "span6 offset2">
 	<fieldset class = "dash_box well">
 		<table class = "grey-background span6 dash_table">
-			<tr><th colspan="4"><h5>Upcoming Sections You are Eligible For</h5></th></tr>
-			<h6><tr><th>Event</th><th>Date</th><th>Ranks</th><th>Ages</th></tr></h6>
+			<tr><th colspan="5"><h5>Upcoming Sections You are Eligible For</h5></th></tr>
+			<h6><tr><th>Event</th><th>Tournament</th><th>Date</th><th>Ranks</th><th>Ages</th></tr></h6>
 			<% @eligible_sec.each do |s| %>
 				<tr><td><%= s.event.name %></td>
+				<td><%= s.tournament.name %></td>
 				<td><%= date_format(s.tournament.date) %></td>
 				<td><%= rank_range_for(s)%></td>
 				<td><%= age_range_for(s) %></td>
 				</tr>
 			<% end %>
 			<% if @eligible_sec.empty? %>
-				<tr><td colspan="4">You are not eligible for any upcoming sections.</td></tr>
+				<tr><td colspan="5">You are not eligible for any upcoming sections.</td></tr>
 				<% end %>
 
 		</table>

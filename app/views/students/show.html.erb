@@ -115,6 +115,7 @@
   <table class="table table-striped">
   <tr>
     <th>Event</th>
+    <th>Tournament</th>
     <th>Rank(s)</th>
     <th>Age(s)</th>
     <th>Date Registered</th>
@@ -126,6 +127,7 @@
   <% @registrations.each do |reg| %>
     <tr>
       <td><%= link_to reg.event.name, section_path(reg.section) %></td>
+      <td><%= link_to reg.section.tournament.name, tournament_path(reg.section.tournament) %></td>
       <td><%= rank_range(reg.section.min_rank, reg.section.max_rank) %></td>
       <td><%= age_range(reg.section.min_age, reg.section.max_age) %></td>
       <td><%= reg.date.strftime("%m/%d/%y") %></td>

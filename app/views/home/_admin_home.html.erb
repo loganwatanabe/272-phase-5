@@ -61,7 +61,7 @@
 			<h5><tr><th colspan="3">Upcoming Tournaments</th></tr></h5>
 			<h6><tr><th>Name</th><th>Date</th><th>Ranks</th></tr></h6>
 			<% @upcoming_tournaments.each do |t| %>
-			<tr><td><%= t.name %></td>
+			<tr><td><%= link_to t.name, tournament_path(t) %></td>
 			<td><%= date_format(t.date) %></td>
 			<td><%= rank_range_for(t)%></td></tr>
 			<% end %>
@@ -75,15 +75,18 @@
 <div class = "span6">
 	<fieldset class = "dash_box well">
 		<table class = "grey-background span6 dash_table">
-			<h5><tr><th colspan="3">Recent Registrations</th></tr></h5>
-			<h6><tr><th>Student</th><th>Event</th><th>Date Registered</th></tr></h6>
+			<h5><tr><th colspan="6">Recent Registrations</th></tr></h5>
+			<h6><tr><th>Student</th><th>Event</th><th>Tournament</th><th>Ages</th><th>Ranks</th><th>Date Registered</th></tr></h6>
 			<% @recent_regs.each do |r| %>
 			<tr><td><%= link_to r.student.name, student_path(r.student) %></td>
 			<td><%= link_to r.section.event.name, section_path(r.section) %></td>
+			<td><%= link_to r.section.tournament.name, tournament_path(r.section.tournament) %></td>
+			<td><%= age_range_for(r.section) %></td>
+			<td><%= rank_range_for(r.section) %></td>
 			<td><%= date_format(r.date) %></td></tr>
 			<% end %>
 			<% if @recent_regs.empty? %>
-				<tr><td colspan="3">No registrations.</td></tr>
+				<tr><td colspan="6">No registrations.</td></tr>
 				<% end %>
 
 		</table>
@@ -116,16 +119,18 @@
 <div class = "span6">
 	<fieldset class = "dash_box well">
 		<table class = "grey-background span6 dash_table">
-			<h5><tr><th colspan="3">Sections that need standings updated</th></tr></h5>
-			<h6><tr><th>Event</th><th>Registrants</th><th>Date</th></tr></h6>
+			<h5><tr><th colspan="5">Sections that need standings updated</th></tr></h5>
+			<h6><tr><th>Event</th><th>Tournament</th><th>Ages</th><th>Ranks</th><th>Registrants</th></tr></h6>
 			<% @not_updated_sections.each do |s| %>
 				<tr><td><%= link_to s.event.name, section_path(s) %></td>
+				<td><%= link_to s.tournament.name, tournament_path(s.tournament) %></td>
+				<td><%= age_range_for(s) %></td>
+				<td><%= rank_range_for(s) %></td>
 				<td><%= Student.registered_for_section(s).size %></td>
-				<td><%= date_format(s.tournament.date) %></td>
 				</tr>
 			<% end %>
 			<% if @not_updated_sections.empty? %>
-				<tr><td colspan="3">All sections up to date.</td></tr>
+				<tr><td colspan="5">All sections up to date.</td></tr>
 				<% end %>
 
 		</table>
@@ -137,17 +142,19 @@
 <div class = "span6 offset2">
 	<fieldset class = "dash_box well">
 		<table class = "grey-background span6 dash_table">
-			<h5><tr><th colspan="4">Recently updated sections</th></tr></h5>
-			<h6><tr><th>Event</th><th>Registrants</th><th>Date</th><th>Winner</th></tr></h6>
+			<h5><tr><th colspan="6">Recently updated sections</th></tr></h5>
+			<h6><tr><th>Event</th><th>Tournament</th><th>Ages</th><th>Ranks</th><th>Registrants</th><th>Winner</th></tr></h6>
 			<% @updated_sections.each do |s| %>
 				<tr><td><%= link_to s.event.name, section_path(s) %></td>
+				<td><%= link_to s.tournament.name, tournament_path(s.tournament) %></td>
+				<td><%= age_range_for(s) %></td>
+				<td><%= rank_range_for(s) %></td>
 				<td><%= Student.registered_for_section(s).size %></td>
-				<td><%= date_format(s.tournament.date) %></td>
 				<td><%= link_to section_winner(s).name, student_path(section_winner(s)) %></td>
 				</tr>
 			<% end %>
 			<% if @updated_sections.empty? %>
-				<tr><td colspan="4">No updated sections.</td></tr>
+				<tr><td colspan="6">No updated sections.</td></tr>
 				<% end %>
 
 		</table>

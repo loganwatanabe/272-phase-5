@@ -5,6 +5,8 @@
 <table class="table table-striped">
   <tr>
     <th>Event</th>
+    <th>Tournament</th>
+    <th>Date</th>
     <th>Rank(s)</th>
     <th>Age(s)</th>
     <th>Registrants</th>
@@ -13,6 +15,8 @@
   <% @active_sections.each do |section| %>
     <tr>
       <td><%= link_to section.event.name, section_path(section) %></td>
+      <td><%= link_to section.tournament.name, tournament_path(section.tournament) %></td>
+      <td><%= date_format(section.tournament.date) %></td>
       <td><%= if section.max_rank then "#{rank_name(section.min_rank)} - #{rank_name(section.max_rank)} " else " #{rank_name(section.min_rank)} and higher" end %></td>
       <td><%= if section.max_age then "#{section.min_age} - #{section.max_age} " else " #{section.min_age} and up" end %></td>
       <td><%= Student.registered_for_section(section).size %></td>
@@ -46,6 +50,8 @@
 <table class="table table-striped">
   <tr>
     <th>Event</th>
+    <th>Tournament</th>
+    <th>Date</th>
     <th>Rank(s)</th>
     <th>Age(s)</th>
     <th>Registrants</th>
@@ -54,6 +60,8 @@
   <% @inactive_sections.each do |section| %>
     <tr>
       <td><%= link_to section.event.name, section_path(section) %></td>
+      <td><%= link_to section.tournament.name, tournament_path(section.tournament) %></td>
+      <td><%= date_format(section.tournament.date) %></td>
       <td><%= if section.max_rank then "#{rank_name(section.min_rank)} - #{rank_name(section.max_rank)} " else " #{rank_name(section.min_rank)} and higher" end %></td>
       <td><%= if section.max_age then "#{section.min_age} - #{section.max_age} " else " #{section.min_age} and up" end %></td>
       <td><%= Student.registered_for_section(section).size %></td>

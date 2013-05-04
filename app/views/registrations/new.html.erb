@@ -24,6 +24,8 @@
   <table class="table table-striped">
   <tr>
     <th>Event</th>
+    <th>Tournament</th>
+    <th>Date</th>
     <th>Rank(s)</th>
     <th>Age(s)</th>
     <th>Fee Paid?</th>
@@ -33,6 +35,8 @@
   <% eligible_sections_for_student(@student).each do |section| %>
     <tr>
       <td><%= link_to section.event.name, section_path(section) %></td>
+      <td><%= link_to section.tournament.name, tournament_path(section.tournament) %></td>
+      <td><%= date_format(section.tournament.date) %></td>
       <td><%= rank_range(section.min_rank, section.max_rank) %></td>
       <td><%= age_range(section.min_age, section.max_age) %></td>
 
@@ -77,11 +81,15 @@
     <table class="table table-striped">
     <tr>
       <th>Event</th>
+      <th>Tournament</th>
+      <th>Date</th>
       <th>Rank(s)</th>
       <th>Age(s)</th>
     </tr>
     <tr>
       <td><%= link_to @section.event.name, section_path(@section) %></td>
+      <td><%= link_to @section.tournament.name, tournament_path(@section.tournament) %></td>
+      <td><%= date_format(@section.tournament.date) %></td>
       <td><%= rank_range(@section.min_rank, @section.max_rank) %></td>
       <td><%= age_range(@section.min_age, @section.max_age) %></td>
     </tr>
