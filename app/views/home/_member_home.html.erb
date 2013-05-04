@@ -66,6 +66,33 @@
 
 
 </div>
+
+
+<div class = "span6 offset2">
+	<fieldset class = "dash_box well">
+		<table class = "grey-background span6 dash_table">
+			<tr><th colspan="6"><h5>Your Recent Sections</h5></th></tr>
+			<h6><tr><th>Event</th><th>Tournament</th><th>Date</th><th>Ranks</th><th>Ages</th><th>Your Final Standing</th></tr></h6>
+			<% @done_regs.each do |r| %>
+				<tr><td><%= r.section.event.name %></td>
+				<td><%= r.section.tournament.name %></td>
+				<td><%= date_format(r.section.tournament.date) %></td>
+				<td><%= rank_range_for(r.section)%></td>
+				<td><%= age_range_for(r.section) %></td>
+				<td><%= if r.final_standing.nil? then "Did not place" else r.final_standing end %></td>
+				</tr>
+			<% end %>
+			<% if @done_regs.empty? %>
+				<tr><td colspan="6">You have not competed in any sections recently.</td></tr>
+				<% end %>
+
+		</table>
+	</fieldset>
+
+
+</div>
+
+
 <div class = "span6 offset2">
 	<fieldset class = "dash_box well">
 		<table class = "grey-background span6 dash_table">

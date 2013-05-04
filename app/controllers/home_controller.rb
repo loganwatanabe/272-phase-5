@@ -12,7 +12,7 @@ class HomeController < ApplicationController
         up_reg = registrations.select{|r| r.section.tournament.date >= Date.current.to_date and (r.section.active ==true)}
       @up_reg_sections = up_reg.map{|r| r.section}.take(5)
 
-
+        @done_regs = registrations.select{|r| r.section.tournament.date < Date.current.to_date and r.section.updated?}
 
         student_sections=Registration.for_student(@student).map{|i| i.section}
 
