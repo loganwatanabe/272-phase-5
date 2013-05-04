@@ -55,19 +55,19 @@ class TournamentsController < ApplicationController
 
 
   def active
-    @tournaments = Tournament.active.chronological.paginate(:page => params[:page]).per_page(20)
+    @active_tournaments = Tournament.active.chronological.paginate(:page => params[:page]).per_page(20)
   end
 
   def inactive
-    @tournaments = Tournament.inactive.chronological.paginate(:page => params[:page]).per_page(20)
+    @inactive_tournaments = Tournament.inactive.chronological.paginate(:page => params[:page]).per_page(20)
   end
 
   def past
-    @tournaments = Tournament.past.chronological.paginate(:page => params[:page]).per_page(20)
+    @past_tournaments = Tournament.past.chronological.paginate(:page => params[:page]).per_page(20)
   end
 
   def upcoming
-    @tournaments = Tournament.current.chronological.paginate(:page => params[:page]).per_page(20)
+    @upcoming_tournaments = Tournament.current.chronological.paginate(:page => params[:page]).per_page(20)
   end
 
 end

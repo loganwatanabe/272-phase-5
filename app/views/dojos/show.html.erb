@@ -48,7 +48,7 @@
 
 <% if current_user.nil? %>
 	Visit this Dojo to sign up for KARATE!!!!
-<% elsif current_user.student.current_dojo == @dojo %>
+<% elsif current_user.student.current_dojo == @dojo or can?(:manage, Dojo) %>
 <!--CURRENT STUDENTS LISTED-->
 		<p>
 		  <b>Current Members:</b>
@@ -70,7 +70,7 @@
 		</table>
 
 		<span class="smtext">
-		<!-- will_paginate @current_students, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" -->
+		<%# will_paginate @current_students, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
 		</span>
 
 		</p>

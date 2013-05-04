@@ -36,17 +36,29 @@
             <td><%= f.input :start_date, :label => false, :order => [:month, :day, :year], :input_html => {:class => "date_box"} %></td>
             <td><%= f.input :end_date, :label => false, :order => [:month, :day, :year], :include_blank => true, :input_html => {:class => "date_box"} %></td>
             <td><%= f.submit 'Update Record', :class => 'btn btn-mini btn-primary' %></td>
+            <% end %>
+
 
             <td>
+
         		<% if ds.end_date == nil %>
-            		<%= link_to 'End Record', dojo_student_path(ds), :method => :end, :confirm => 'End record?', :class => 'btn btn-mini btn-info ds_button' %>
+              <%= simple_form_for ds, :html => { :class => 'form-horizontal' } do |f| %>
+            
+                    <%= f.hidden_field :student_id, :value => ds.student.id %>
+                    <%= f.hidden_field :dojo_id, :value => ds.dojo.id %>
+                    <%= f.hidden_field :start_date, :value => ds.start_date %>
+                    <%= f.hidden_field :end_date, :value => Date.current.to_date  %>
+                    <%= f.submit 'End Record', :confirm => 'End record?', :class => 'btn btn-mini btn-info ds_button' %>
+              <% end %>
+
         		<% else %>
+
+
             		<%= link_to 'Delete Record', dojo_student_path(ds), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger ds_button' %>
        			 <% end %>
     		</td>
 
 
-      <% end %>
     </tr>
 
   <% end %>

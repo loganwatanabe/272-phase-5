@@ -47,7 +47,13 @@
         <%= f.hidden_field :student_id %>
         <%= f.hidden_field :date %>
         <td><%= f.input :fee_paid, :label => false %></td>
+
+        <% if reg.section.tournament.date < Date.current.to_date %>
         <td><%=  f.input :final_standing, :collection => (1..5), :label => false, :include_blank => true, :input_html => {:class => "standing_box"} %></td>
+        <% else %>
+        <td></td>
+        <% end %>
+
         <td><%= f.submit 'Update', :class => 'btn btn-primary' %></td>
         <td>
         <%= link_to 'Delete Registration', registration_path(reg), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
@@ -101,7 +107,9 @@
     <th>Age</th>
     <th>Rank</th>
     <th>Fee Paid?</th>
+    <% if @section.tournament.date < Date.current.to_date %>
     <th>Final Standing</th>
+    <% end %>
     <th></th>
     <th></th>
   </tr>
@@ -122,7 +130,12 @@
         <%= f.hidden_field :student_id %>
         <%= f.hidden_field :date %>
         <td><%= f.input :fee_paid, :label => false %></td>
+
+        <% if reg.section.tournament.date < Date.current.to_date %>
         <td><%=  f.input :final_standing, :collection => (1..5), :label => false, :include_blank => true, :input_html => {:class => "standing_box"} %></td>
+        <% end %>
+
+
         <td><%= f.submit 'Update', :class => 'btn btn-primary' %></td>
         <td>
         <%= link_to 'Delete Registration', registration_path(reg), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>

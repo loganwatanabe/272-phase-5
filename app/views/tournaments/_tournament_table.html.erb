@@ -1,0 +1,23 @@
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Date</th>
+    <th>Ranks</th>
+  </tr>
+
+  <% tournaments.each do |tournament| %>
+    <tr>
+      <td><%= link_to tournament.name, tournament_path(tournament) %></td>
+      <td><%= date_format(tournament.date) %></td>
+      <td><%= rank_range_for(tournament) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<% if tournaments.empty?%>
+<h4>There are no tournaments in this category.</h4>
+<% end %>
+
+<span class="smtext">
+<%= will_paginate tournaments, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+</span>
