@@ -175,6 +175,15 @@ class StudentTest < ActiveSupport::TestCase
       assert_equal ["Hoover","Henderson"], Student.seniors.by_rank.all.map(&:last_name)
     end
     
+
+    should "shows that search for student by either (part of) last or first name works" do
+      assert_equal 3, Student.search("J").size
+      assert_equal 1, Student.search("Howard").size
+      assert_equal 1, Student.search("Major").size
+    end
+
+
+
     should "deactivate not destroy student and associated user" do
       @noah_user = FactoryGirl.create(:user, student: @noah, email: "noah@example.com")
       @noah.destroy

@@ -3,71 +3,61 @@
 
 <%= image_tag ("kkid.jpg"), :class=>"home-img img-polaroid"%>
 
-<h4>Welcome, ADMIN, to your database application to track, register, and manage Karate students and tournaments.</h4>
-<h5>To get started, use the links below, to the left, or above to navigate the site.</h5>
+<h4>Welcome, <%= current_user.student.first_name %>, to the A&M Karate School Tournament System.</h4>
+<h6>As an admin, you can manage tournaments, students, dojos, and participation in tournament sections.
+	<br>Use the buttons below to view all tournaments, students, dojos, sections, and events.
+	<br>Use the dashboard below to see upcoming tournaments, sections you're registered for, and upcoming sections you can register for.</h6>
 
-<tr>
-	<td><%= link_to 'students', students_path, :class => "btn btn-large btn-info" %></td>
-	<td><%= link_to 'dojos', dojos_path, :class => "btn btn-large btn-info" %></td>
-	<td><%= link_to 'tournaments', tournaments_path, :class => "btn btn-large btn-info" %></td>
-	<td><%= link_to 'sections', sections_path, :class => "btn btn-large btn-info" %></td>
-	<td><%= link_to 'events', events_path, :class => "btn btn-large btn-info"%></td>
-</tr>
 
-<h5>Below, you can see recent section registrations, dojo records, upcoming tournaments, sections you're registered for, and upcoming sections you can register for.</h5>
 
 <div class = "row" >
 
-<div class = "span2">
-Recent Section Registrations
+<div class = "span4 offset3"><!--SEARCH: don't work for some reason, copied from PATS, doesn't pass a :query-->
+
+			<%= form_tag(search_path) do %>
+				<%= text_field_tag('query', '', :size => 25, :placeholder => "Search students", :class => "input-medium search-query") %>
+				<%= submit_tag('Find', :class => "btn") %>
+			<% end %>
 
 
 </div>
-<div class = "span2">
-Recent Dojo Records
-
-
-</div>
-<div class = "span2">
-Upcoming Tournaments
-
-
-</div>
-<div class = "span2">
-Upcoming Registered Sections
-
-
-</div>
-<div class = "span2">
-Sections you can Register for
-
-
-</div>
-
-
-</div>
-
-
-<div class = "row" >
 
 <div class = "span2">
 	<fieldset class = "dash_box well">
-		<table class = "grey-background">
-			<tr><th>Your Information</th></tr>
-			<tr><td>Name: <%= current_user.student.name %></td></tr>
-			<tr><td>Rank: <%= rank_name(current_user.student.rank) %></td></tr>
-			<tr><td>Current Dojo: <%= if @student.current_dojo.nil? then "None" else current_user.student.current_dojo.name end %></td></tr>
+		<table class = "grey-background text_left">
+			<h5><tr><th>Your Information</th></tr></h5>
+			<tr><td><b>Name:</b> <%= current_user.student.name %></td></tr>
+			<tr><td><b>Rank:</b> <%= rank_name(current_user.student.rank) %></td></tr>
+			<tr><td><b>Dojo:</b> <%= if @student.current_dojo.nil? then "None" else current_user.student.current_dojo.name end %></td></tr>
 			<tr><td><%= link_to 'My Info', student_path(current_user.student), :class => "btn btn-info"%></td></tr>
 
 		</table>
 	</fieldset>
+		
+		<h5> View: </h5>
+		<table>
+			<tr><%= link_to 'students', students_path, :class => "btn btn-primary home_butt" %></tr>
+			<tr><%= link_to 'dojos', dojos_path, :class => "btn btn-primary home_butt" %></tr>
+			<tr><%= link_to 'tournaments', tournaments_path, :class => "btn btn-primary home_butt" %></tr>
+			<tr><%= link_to 'sections', sections_path, :class => "btn btn-primary home_butt" %></tr>
+			<tr><%= link_to 'events', events_path, :class => "btn btn-primary home_butt" %></tr>
+		</table>
+
+
+	</fieldset>
 
 </div>
+
+
+
+
+
+
 <div class = "span6">
 	<fieldset class = "dash_box well">
-		<table class = "grey-background span6">
-			<tr><th colspan="3">Upcoming Tournaments</th></tr>
-			<tr><th>Name</th><th>Date</th><th>Ranks</th></tr>
+		<table class = "grey-background span6 dash_table">
+			<h5><tr><th colspan="3">Upcoming Tournaments</th></tr></h5>
+			<h6><tr><th>Name</th><th>Date</th><th>Ranks</th></tr></h6>
 			<% @upcoming_tournaments.each do |t| %>
 			<tr><td><%= t.name %></td>
 			<td><%= date_format(t.date) %></td>
@@ -82,9 +72,9 @@ Sections you can Register for
 </div>
 <div class = "span6">
 	<fieldset class = "dash_box well">
-		<table class = "grey-background span6">
-			<tr><th colspan="3">Recent Registrations</th></tr>
-			<tr><th>Student</th><th>Event</th><th>Date Registered</th></tr>
+		<table class = "grey-background span6 dash_table">
+			<h5><tr><th colspan="3">Recent Registrations</th></tr></h5>
+			<h6><tr><th>Student</th><th>Event</th><th>Date Registered</th></tr></h6>
 			<% @recent_regs.each do |r| %>
 			<tr><td><%= link_to r.student.name, student_path(r.student) %></td>
 			<td><%= link_to r.section.event.name, section_path(r.section) %></td>
@@ -99,11 +89,11 @@ Sections you can Register for
 
 
 </div>
-<div class = "span6 offset2">
+<div class = "span6">
 	<fieldset class = "dash_box well">
-		<table class = "grey-background span6">
-			<tr><th colspan="4">Recent Dojo Assignments</th></tr>
-			<tr><th>Student</th><th>Dojo</th><th>Start</th><th>End</th></tr>
+		<table class = "grey-background span6 dash_table">
+			<h5><tr><th colspan="4">Recent Dojo Assignments</th></tr></h5>
+			</h6><tr><th>Student</th><th>Dojo</th><th>Start</th><th>End</th></tr></h6>
 			<% @recent_ds.each do |ds| %>
 				<tr><td><%= link_to ds.student.name, student_path(ds.student) %></td>
 				<td><%= link_to ds.dojo.name, dojo_path(ds.dojo) %></td>
@@ -123,9 +113,9 @@ Sections you can Register for
 
 <div class = "span6 offset2">
 	<fieldset class = "dash_box well">
-		<table class = "grey-background span6">
-			<tr><th colspan="3">Sections that need standings updated</th></tr>
-			<tr><th>Event</th><th>Registrants</th><th>Date</th></tr>
+		<table class = "grey-background span6 dash_table">
+			<h5><tr><th colspan="3">Sections that need standings updated</th></tr></h5>
+			<h6><tr><th>Event</th><th>Registrants</th><th>Date</th></tr></h6>
 			<% @not_updated_sections.each do |s| %>
 				<tr><td><%= link_to s.event.name, section_path(s) %></td>
 				<td><%= Student.registered_for_section(s).size %></td>
@@ -144,9 +134,9 @@ Sections you can Register for
 
 <div class = "span6 offset2">
 	<fieldset class = "dash_box well">
-		<table class = "grey-background span6">
-			<tr><th colspan="4">Recently updated sections</th></tr>
-			<tr><th>Event</th><th>Registrants</th><th>Date</th><th>Winner</th></tr>
+		<table class = "grey-background span6 dash_table">
+			<h5><tr><th colspan="4">Recently updated sections</th></tr></h5>
+			<h6><tr><th>Event</th><th>Registrants</th><th>Date</th><th>Winner</th></tr></h6>
 			<% @updated_sections.each do |s| %>
 				<tr><td><%= link_to s.event.name, section_path(s) %></td>
 				<td><%= Student.registered_for_section(s).size %></td>
