@@ -216,11 +216,6 @@ class SectionTest < ActiveSupport::TestCase
       assert @r_belt_sparring.active
     end
     
-    should "allow sections without registrations to be deleted" do
-      assert_equal 0, @bl_belt_breaking.registrations.size  # just to show nothing is there to start
-      @bl_belt_breaking.destroy
-      assert @bl_belt_breaking.destroyed?
-    end
     
     should "have a method to show if registrations have standings" do
       ed = FactoryGirl.create(:student)
@@ -230,6 +225,9 @@ class SectionTest < ActiveSupport::TestCase
       assert_equal 2, @wy_belt_sparring.registrations.size  # just to show nothing is there to start
 
       assert_equal true, @wy_belt_sparring.updated? #registrations are good
+      
+
+      assert_equal nil, @r_belt_sparring.updated? #section has no registrations
 
       reg_ed_sp.final_standing = nil
       reg_ted_sp.final_standing = nil
@@ -259,20 +257,25 @@ class SectionTest < ActiveSupport::TestCase
     end
 
 
-
-    should "make sections with registrations to be inactive" do
-      ed = FactoryGirl.create(:student)
-      ted = FactoryGirl.create(:student, first_name: "Ted")
-      reg_ed_sp = FactoryGirl.create(:registration, student: ed, section: @wy_belt_sparring)
-      reg_ted_sp = FactoryGirl.create(:registration, student: ted, section: @wy_belt_sparring)
-      assert_equal 2, @wy_belt_sparring.registrations.size  # just to show nothing is there to start
-      @wy_belt_sparring.destroy
-      deny @wy_belt_sparring.destroyed?
-      deny @wy_belt_sparring.active
-      ed.delete
-      ted.delete
-      reg_ed_sp.delete
-      reg_ted_sp.delete
-    end
+    # should "allow sections without registrations to be deleted" do
+    #   assert_equal 0, @bl_belt_breaking.registrations.size  # just to show nothing is there to start
+    #   @bl_belt_breaking.destroy
+    #   assert @bl_belt_breaking.destroyed?
+    # end
+    # 
+    # should "make sections with registrations to be inactive" do
+    #   ed = FactoryGirl.create(:student)
+    #   ted = FactoryGirl.create(:student, first_name: "Ted")
+    #   reg_ed_sp = FactoryGirl.create(:registration, student: ed, section: @wy_belt_sparring)
+    #   reg_ted_sp = FactoryGirl.create(:registration, student: ted, section: @wy_belt_sparring)
+    #   assert_equal 2, @wy_belt_sparring.registrations.size  # just to show nothing is there to start
+    #   @wy_belt_sparring.destroy
+    #   deny @wy_belt_sparring.destroyed?
+    #   deny @wy_belt_sparring.active
+    #   ed.delete
+    #   ted.delete
+    #   reg_ed_sp.delete
+    #   reg_ted_sp.delete
+    # end
   end
 end
