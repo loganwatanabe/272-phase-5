@@ -76,6 +76,12 @@ class StudentsController < ApplicationController
 
   #Custom views, to ensure correct subset is displayed
 
+  def search
+    @query = params[:search]
+    @students = Student.search(params[:search]).alphabetical.paginate(:page => params[:page]).per_page(20)
+    @total_hits = @students.size
+  end
+
   def active
     @active_students = Student.active.alphabetical.paginate(:page => params[:page]).per_page(20)
   end

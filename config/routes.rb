@@ -20,7 +20,6 @@ Karate67272::Application.routes.draw do
   match 'contact' => 'home#contact', :as => :contact
   match 'privacy' => 'home#privacy', :as => :privacy
   match 'error_page' => 'home#error_page', :as => :error_page
-  match 'search' => 'home#search', :as => :search
 
   #sets routes for student views
   match 'active_students' => 'students#active', :as => :active_students
@@ -31,6 +30,7 @@ Karate67272::Application.routes.draw do
   match 'seniors' => 'students#seniors', :as => :seniors_students
   match 'dans' => 'students#dans', :as => :dans_students
   match 'gups' => 'students#gups', :as => :gups_students
+  match 'search_students' => 'students#search', :as => :search_students
 
 
   #sets routes for event views
