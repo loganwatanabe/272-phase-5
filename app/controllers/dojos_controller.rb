@@ -12,7 +12,9 @@ class DojosController < ApplicationController
 
   def show
     @dojo = Dojo.find(params[:id])
-    @current_students = @dojo.current_students #paginate(:page => params[:page]).per_page(20)   #This don't work cuz of the method
+    #@current_students = @dojo.current_students #paginate(:page => params[:page]).per_page(20)   #This don't work cuz of the method
+    @dojo_students =  DojoStudent.current.for_dojo(@dojo).by_student.paginate(:page => params[:page]).per_page(20)
+    @current_students = @dojo_students.map{|ds| ds.student}
     # @current_students = Student.alphabetical.select{|s| s.current_dojo == @dojo}.paginate(:page => params[:page]).per_page(20)
   end
 

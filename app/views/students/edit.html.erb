@@ -20,8 +20,9 @@
 
                 <%= user.hidden_field :student_id, :value => @student.id %>
                 <%= user.input :email, :allow_blank => true %>
-                <%= user.input :password %>
-                <%= user.input :password_confirmation %>
+                <%# label_tag 'Old password' %><%# password_field_tag :current_password, params[:current_password] %>
+                <%= user.input :password, :label => "New password" %>
+                <%= user.input :password_confirmation, :label => "New password confirmation" %>
                 <% if current_user.role?(:admin)%>
                 <%= user.input :role, :collection => User::ROLES %>
                 <% end %>
