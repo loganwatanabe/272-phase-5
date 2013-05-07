@@ -1,3 +1,5 @@
+Nothing Here
+<!--
 <h1>Only here for development purposes</h1>
 
   <h4> For Student: </h4>
@@ -9,20 +11,21 @@
         <th>Rank</th>
       </tr>
       <tr>
-        <td><%= link_to @dojo_student.student.name, student_path(@dojo_student.student) %></td>
-        <td><%= @dojo_student.student.age %></td>
-        <td><%= "#{rank_name(@dojo_student.student.rank)}" %></td>
+        <td><%# link_to @dojo_student.student.name, student_path(@dojo_student.student) %></td>
+        <td><%# @dojo_student.student.age %></td>
+        <td><%# "#{rank_name(@dojo_student.student.rank)}" %></td>
       </tr>
     </table>
 
 
-          <%= simple_form_for @dojo_student, :html => { :class => 'form-horizontal' } do |f| %>
+          <%# simple_form_for @dojo_student, :html => { :class => 'form-horizontal' } do |f| %>
           <fieldset>
-            <%= f.hidden_field :student_id, :value => @dojo_student.student.id %>
-            <%= f.association :dojo, :collection => Dojo.active.alphabetical %>
-            <%= f.input :start_date, :value => Date.current.to_date %>
-            <%= f.input :end_date, :allow_blank => true, :allow_nil => true %>
-            <td><%= f.submit 'Create Record', :class => 'btn btn-mini btn-primary' %></td>
+            <%# f.hidden_field :student_id, :value => @dojo_student.student.id %>
+            <%# f.association :dojo, :collection => Dojo.active.alphabetical %>
+            <%# f.input :start_date, :value => Date.current.to_date %>
+            <%# f.input :end_date, :allow_blank => true, :allow_nil => true %>
+            <td><%# f.submit 'Create Record', :class => 'btn btn-mini btn-primary' %></td>
           </fieldset>
-          <% end %>
+          <%# end %>
 
+-->

@@ -38,6 +38,7 @@ class Event < ActiveRecord::Base
       self.sections.each{|s| s.destroy}
       return true
     else
+      self.errors.add :base, "Cannot destroy an event with students assigned!"
       return false
     end
   end

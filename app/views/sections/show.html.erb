@@ -45,10 +45,12 @@
 <% if can? :manage, Section %>
   <p><!--Functionality buttons-->
     <%= link_to 'Edit', edit_section_path(@section), :class => 'btn btn-info' %>
-    <% if @section.active %>
+    <% if @section.tournament.date < Date.current.to_date   %>
+      <a href="#" class="btn disabled">Past sections cannot register</a>
+    <% elsif @section.active%>
       <%= link_to 'Register a Student', new_registration_path(:student_id => nil, :section_id => @section.id), :class => 'btn btn-primary' %>
     <% else %>
-      <a href="#" class="btn disabled">Inactive sections cannot register</a>
+      <a href="#" class="btn disabled">Inactive sections cannot register students</a>
     <% end %>
     <%= link_to 'Delete Section', section_path(@section), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
   </p>
@@ -85,7 +87,15 @@
       <td><%= activity(reg.fee_paid) %></td>
 
       <% if @section.tournament.date < Date.current.to_date %>
-      <td><%= reg.final_standing %></td>
+      <td>
+        <% if reg.section.updated? and reg.final_standing %>
+          <%= reg.final_standing %>
+          <% elsif reg.section.updated? and reg.final_standing.nil? %>
+          Did not place
+          <% else %>
+          Results not updated
+          <% end %>
+      </td>
       <% end %>
 
       <td>

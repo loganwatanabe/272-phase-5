@@ -95,14 +95,6 @@ class Student < ActiveRecord::Base
   end
   
 
-# def self.search(search)
-#   if search
-#     find(:all, :conditions => ['first_name LIKE ? OR last_name LIKE ?', "%#{search}%", "%#{search}%"])
-#   else
-#     find(:all)
-#   end
-# end
-
 
 
   # Private methods
@@ -114,6 +106,7 @@ class Student < ActiveRecord::Base
   end
   
   def check_if_destroyable
+    self.errors.add :base, "Cannot delete student records!"
     return false
   end
   

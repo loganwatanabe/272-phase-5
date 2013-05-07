@@ -48,9 +48,13 @@ class TournamentsController < ApplicationController
 
   def destroy
     @tournament = Tournament.find(params[:id])
-    @tournament.destroy
-    flash[:notice] = "Successfully destroyed #{@tournament.name}."
-    redirect_to tournaments_url
+    if @tournament.destroy
+      flash[:notice] = "Successfully destroyed #{@tournament.name}."
+      redirect_to tournaments_url
+    else
+      flash[:warning] = "Cannot destroy #{@tournament.name} because it has students assigned to it."
+      redirect_to @tournament
+    end
   end
 
 

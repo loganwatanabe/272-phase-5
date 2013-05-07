@@ -43,9 +43,14 @@ authorize_resource
 
   def destroy
     @event = Event.find(params[:id])
-    @event.destroy
-    flash[:notice] = "Successfully destroyed #{@event.name}."
-    redirect_to events_url
+    if @event.destroy
+      flash[:notice] = "Successfully destroyed #{@event.name}."
+      redirect_to events_url
+    else
+      flash[:warning] = "Cannot destroy #{@event.name} because it has students assigned."
+      redirect_to @event
+    end
+
   end
 
   #Custom views

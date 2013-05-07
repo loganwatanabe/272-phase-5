@@ -33,6 +33,7 @@
   </tr>
 
   <% eligible_sections_for_student(@student).each do |section| %>
+  <% unless section.tournament.date < Date.current.to_date %>
     <tr>
       <td><%= link_to section.event.name, section_path(section) %></td>
       <td><%= link_to section.tournament.name, tournament_path(section.tournament) %></td>
@@ -61,6 +62,7 @@
       <% end %>
 
     </tr>
+    <% end %>
   <% end %>
 </table>
 <span class="smtext">

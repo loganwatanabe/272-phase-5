@@ -23,7 +23,7 @@ class HomeController < ApplicationController
       @recent_regs = Registration.by_date.reverse.take(5)
       @recent_ds = DojoStudent.chronological.take(5)
 
-      done_sections = Section.alphabetical.select{|s| s.tournament.date < Date.current.to_date}
+      done_sections = Section.select{|s| s.tournament.date < Date.current.to_date}
       @not_updated_sections = done_sections.select{|s| !s.updated? }.take(5)
       @updated_sections = done_sections.select{|s| s.updated?}.sort_by{|s| s.tournament.date}.take(5)
 

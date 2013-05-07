@@ -66,9 +66,13 @@ class StudentsController < ApplicationController
 
   def destroy
     @student = Student.find(params[:id])
-    @student.destroy
-    flash[:notice] = "Successfully removed #{@student.proper_name} from the PATS system."
-    redirect_to students_url
+    if @student.destroy
+      flash[:notice] = "Successfully destroyed #{@student.proper_name}."
+      redirect_to students_url
+    else
+      flash[:warning] = "Cannot destroy #{@student.proper_name} because you cannot destroy students."
+      redirect_to @student
+    end
 
   end
 

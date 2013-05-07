@@ -69,6 +69,7 @@ class Section < ActiveRecord::Base
     if self.registrations.empty?
       return true
     else
+      self.errors.add :base, "Cannot destroy a section with students assigned!"
       return false
     end
   end

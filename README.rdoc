@@ -31,8 +31,8 @@ I made destroy buttons available for all the models.  Even though we've stated t
 
 Other stuff:
 
-There's also a search students bar in student index.
+There's also a search students bar at the top of the student index page.
 
-The failed login and unauthorized flash messages are green because I can't figure out how to set their notice to error, it always stays at success.
+When I try to destroy a student and it is prevented, it doesn't make the student inactive. Don't know why.  Maybe because this is dev db? idk
 
-I added a couple scopes to DojoStudent and a couple methods here and there but they're all covered.  The only method not covered is the create_map method in dojo needed for making the map, but I figure we don't need to test that (since I don't know how).
+I added a couple scopes to DojoStudent and a couple methods here and there but they're all covered.  The only method not covered is the create_map method in dojo model needed for making the map, but I figure we don't need to test that (since I don't know how to).

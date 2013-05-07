@@ -132,7 +132,14 @@
       <td><%= age_range(reg.section.min_age, reg.section.max_age) %></td>
       <td><%= reg.date.strftime("%m/%d/%y") %></td>
       <td><%= activity(reg.fee_paid) %></td>
-      <td><%= reg.final_standing %></td>
+      <td><% if reg.section.updated? and reg.final_standing %>
+          <%= reg.final_standing %>
+          <% elsif reg.section.updated? and reg.final_standing.nil? %>
+          Did not place
+          <% else %>
+          Results not updated
+          <% end %>
+      </td>
 
       <td>
 

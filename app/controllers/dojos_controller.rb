@@ -53,9 +53,13 @@ class DojosController < ApplicationController
 
   def destroy
     @dojo = Dojo.find(params[:id])
-    @dojo.destroy
-    flash[:notice] = "Successfully destroyed #{@dojo.name}."
-    redirect_to dojos_url
+    if @dojo.destroy
+      flash[:notice] = "Successfully destroyed #{@dojo.name}."
+      redirect_to dojos_url
+    else
+      flash[:warning] = "Cannot destroy #{@dojo.name} because it has students assigned."
+      redirect_to @dojo
+    end
   end
 
 #custom pages

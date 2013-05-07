@@ -44,6 +44,7 @@ class Dojo < ActiveRecord::Base
     if self.dojo_students.empty?
       return true
     else
+      self.errors.add :base, "Cannot destroy a dojo with students assigned!"
       return false
     end
   end

@@ -20,7 +20,13 @@
   <%= activity(@dojo.active) %>
 </p>
 
-
+<br><br>
+<% if can? :manage, Dojo %>
+	<p><!--Functionality buttons-->
+	  <%= link_to 'Edit', edit_dojo_path(@dojo), :class => 'btn btn-info' %>
+	  <%= link_to 'Delete dojo', dojo_path(@dojo), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+	</p>
+<% end %>
 
 <br><br>
 <!--Google Maps-->  
@@ -30,20 +36,6 @@
 
 
 <br><br>
-
-<% if can? :manage, Dojo %>
-	<p><!--Functionality buttons-->
-	  <%= link_to 'Edit', edit_dojo_path(@dojo), :class => 'btn btn-info' %>
-	  <% if @dojo.active %>
-	    <%= link_to 'Add Student to Dojo', new_dojo_student_path(:dojo_id => @dojo.id), :class => 'btn btn-primary' %>
-	  <% else %>
-	    <a href="#" class="btn disabled">Inactive dojos cannot have students</a>
-	  <% end %>
-	  <%= link_to 'Delete dojo', dojo_path(@dojo), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
-	</p>
-<% end %>
-
-
 <br><br>
 
 <% if current_user.nil? %>

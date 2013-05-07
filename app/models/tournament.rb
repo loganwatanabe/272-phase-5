@@ -32,6 +32,7 @@ class Tournament < ActiveRecord::Base
       self.sections.each{|s| s.delete}
       return true
     else
+      self.errors.add :base, "Cannot destroy a tournament with students assigned!"
       return false
     end
   end

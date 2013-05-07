@@ -57,9 +57,14 @@ class SectionsController < ApplicationController
   
   def destroy
     @section = Section.find(params[:id])
-    @section.destroy
-    flash[:notice] = "Successfully destroyed section."
-    redirect_to sections_url
+    if @section.destroy
+      flash[:notice] = "Successfully destroyed section."
+      redirect_to sections_url
+    else
+      flash[:warning] = "Could not destroy section because it had students assigned to it."
+      redirect_to @section
+    end
+
   end
 
   #Custom page views, needed so that correct subsets are passed into the view
