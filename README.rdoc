@@ -1,9 +1,38 @@
 A&M Karate School App :: 67-272
+
+Logan Watanabe Phase 5
 ===
-This is a basic Rails app that was built as a solution to phase 4 (of 5) of the course project in the spring of 2013.  This phase does give you some basic views, but moving forward a student should restyle the app so that the overall look and feel is different.  (Some students have nice designs -- ones far better than this very generic design -- and I don't want those students abandoning better design for this very generic one.)
 
-The class is Application Design & Development and is for Information Systems students at Carnegie Mellon University (campuses both in Pittsburgh and Doha).  We have posted this code on github.com in a public directory so that (a) it is readily accessible to students in both PA and Qatar and (b) that students will get a little familiarity with github.com.
+Please look at the web app with a fully maximized browser window.  If you minimize the window the bootstraps span thing kicks in and it looks really weird and scrunched up.  It will still function, but it will look really messed up.
 
-This project does require the use of several gems to work properly.  Check the Gemfile to see which gems are used.  In order to make sure everyone is on the same page moving forward, specific versions of gems have been specified in the Gemfile, so run bundle to make sure you are using the correct versions.
+AUTHORIZATION:
 
-There is a populate script that is available by running `rake db:populate` on the command line.  This will create several hundred students across 9 different age ranges and in each rank.  Along with three sections, breaking, sparring and forms, this will give students a realistic set of data in their development database to test their application in the browser.
+I just did what the phase 5 spec sheet said for authorization:
+
+Guests can only view the guest dashboard, business links, and dojo index and show pages.
+
+Members can view everything a guest can, and also their own show page.  On their dojo show page they can also see their dojo's current students.  On their dashboard they can see their next 5 upcoming sections registered for, their last 5 completed sections, and 5 upcoming sections they are eligible for.  They can edit their student name, birthdate, phone, activity, and waiver signed.
+Members can also edit their user email and password, but I did not know how to put in an old password confirmation so if they are logged in they can change it without putting in their old one.
+
+Admins can CRUD everything.  Their dashboard has a student search bar and lists that include the 5 most recent section registrations and dojo assignments, and lists of sections that have completed (date passed) but final standings were not entered, and sections that were completed and updated with final standings.
+
+===
+
+CRUD stuff:
+
+To create a registration you can either go to the student's page or the section's page and click register this section/student to be taken to a registration page.  You can toggle fee_paid and then click Register to create it.
+To edit/update a registration (to enter final standings) you can go to a section/student show page and click edit registrations.  For sections, if the date passed you will bee able to set final standings for the registrations.  For students, if the particular registration's section date passed, you can change the final standing, but otherwise there is no dropdown.  For those edit pages hitting one "UPDATE" button only submits the changes for that one registration (it's a pain, but I couldn't get it to submit with one button).
+
+To create a dojo_student, you go to a student's show page and at the bottom select a dojo and hit "add dojo record."  This will create a new current record with start_date as today.  I know this isn't ideal if you are trying to create an old history, but you can make several like this then edit them.  At least this way you can add new ones onto existing histories, if you know what I mean.  To destroy, you need to go into the "edit dojo records" page through the student show.
+
+I made destroy buttons available for all the models.  Even though we've stated that some things (like students) can't be destroyed, I left them in just in case.
+
+===
+
+Other stuff:
+
+There's also a search students bar in student index.
+
+The failed login and unauthorized flash messages are green because I can't figure out how to set their notice to error, it always stays at success.
+
+I added a couple scopes to DojoStudent and a couple methods here and there but they're all covered.  The only method not covered is the create_map method in dojo needed for making the map, but I figure we don't need to test that (since I don't know how).
